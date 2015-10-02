@@ -12,6 +12,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.Consumes;
 
+import java.util.*;
+import javax.mail.*;
+import javax.mail.internet.*;
+import javax.activation.*;
+
 
 /**
  * Created by James on 9/29/2015.
@@ -20,37 +25,37 @@ import javax.ws.rs.Consumes;
 @Path("/fileService")
 public class serverCalls {
     // The Java method will process HTTP GET requests
-    @Path("/getList")
+    @Path("/getList/{username}")
     @GET
     // The Java method will produce content identified by the MIME Media type "text/plain"
     @Produces(MediaType.APPLICATION_JSON)
-    public FileList getFileList() {
+    public FileList getFileList(@PathParam("username") String username) {
         // Return some cliched textual content
         System.out.println("Sending files");
 
-        FileList fileList = new FileList();
+        FileList fileList = new FileList(username);
         return fileList;
     }
 
-    @Path("/getFile/{fileName}")
+    @Path("/getFile/{username}/{fileName}")
     @GET
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response getFile(@PathParam("fileName") String fileName) {
-        File file = new File("src/service/Files" + fileName); // Initialize this to the File path you want to serve.
+    public Response getFile(@PathParam("username") String username, @PathParam("fileName") String fileName) {
+        File file = new File("./fileSystem/users/" +  username + "/Files/" + fileName); // Initialize this to the File path you want to serve.
         return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
                 .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"" ) //optional
                 .build();
     }
 
     @POST
-    @Path("/uploadFile")
+    @Path("/uploadFile/{username}")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response uploadFile(FormDataMultiPart form) {
+    public Response uploadFile(FormDataMultiPart form, @PathParam("username") String username) {
         System.out.println(form);
         FormDataBodyPart filePart = form.getField("file");
         ContentDisposition headerOfFilePart =  filePart.getContentDisposition();
         InputStream fileInputStream = filePart.getValueAs(InputStream.class);
-        String filePath = "src/service/Files" + headerOfFilePart.getFileName();
+        String filePath = "fileSystem/users/" +  username + "Files/" + headerOfFilePart.getFileName();
         saveFile(fileInputStream, filePath);
         String output = "File saved to server location using FormDataMultiPart : " + filePath;
         return Response.status(200).entity(output).build();
@@ -75,19 +80,136 @@ public class serverCalls {
 
 
 
-    @Path("/addFile/{fileName}/{fileOwner}")
+    @Path("/addFile/{username}/{fileName}")
     @GET
-    public void addFile(@PathParam("fileName") String fileName, @PathParam("fileOwner") String fileOwner)
+    public Response addFile(@PathParam("fileName") String fileName, @PathParam("username") String username)
     {
         System.out.println("Receiving files");
         Writer output;
         try {
-            output = new BufferedWriter(new FileWriter("src/service/Files.txt", true));
-            String line = fileName + "," + fileOwner + "\n";
+            output = new BufferedWriter(new FileWriter("./fileSystem/users/" + username + "/fileList.txt", true));
+            String line = fileName + "\n";
             output.append(line);
             output.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        return Response.status(200).entity("File Added").build();
+    }
+
+    @Path("/login/{username}/{password}")
+    @GET
+    public Response login(@PathParam("username") String username, @PathParam("password") String password)
+    {
+        File file = new File("./fileSystem/users/" + username);
+        if (file.isDirectory())
+        {
+            System.out.println("Found user");
+            try {
+                BufferedReader output = new BufferedReader(new FileReader("./fileSystem/users/" + username + "/userInfo.txt"));
+                if (output.readLine().equals(password)) {
+                    return Response.status(200).entity("Successful").build();
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return Response.status(200).entity("Unsuccessful").build();
+    }
+
+    @Path("/confirmUser/{username}")
+    @GET
+    public Response confirmUser(@PathParam("username") String username)
+    {
+        System.out.println("Confirming User");
+        try {
+            File dir = new File("fileSystem/users/" + username + "/Files");
+            dir.mkdir();
+            PrintWriter writer = new PrintWriter("fileSystem/users/" + username + "/fileList.txt", "UTF-8");
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Response.status(200).entity("Account confirmed!").build();
+    }
+
+    @Path("/registerUser/{username}/{password}/{firstName}/{lastName}/{email}")
+    @GET
+    public Response registerUser(@PathParam("username") String username, @PathParam("password") String password, @PathParam("firstName") String firstName,
+                                 @PathParam("lastName") String lastName, @PathParam("email") String email)
+    {
+        System.out.println("Creating user");
+        File dir = new File("fileSystem/users/" + username);
+        dir.mkdir();
+        try {
+            PrintWriter writer = new PrintWriter("fileSystem/users/" + username + "/userInfo.txt", "UTF-8");
+            writer.println(password);
+            writer.println(firstName);
+            writer.println(lastName);
+            writer.println(email);
+            writer.close();
+            confirmUser(username, email);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Response.status(200).entity("User Added").build();
+    }
+
+    private void confirmUser(String userName, String email) {
+        // Recipient's email ID needs to be mentioned.
+        String to = email; //change accordingly
+
+        // Sender's email ID needs to be mentioned
+        String from = "fileserviceconfirmation@gmail.com";//change accordingly
+        final String username = "fileserviceconfirmation";//change accordingly
+        final String password = "AEIOU123";//change accordingly
+
+        // Assuming you are sending email through relay.jangosmtp.net
+        String host = "smtp.gmail.com";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
+
+        // Get the Session object.
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+
+        try {
+            // Create a default MimeMessage object.
+            Message message = new MimeMessage(session);
+
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
+
+            // Set To: header field of the header.
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(to));
+
+            // Set Subject: header field
+            message.setSubject("Account Confirmation");
+
+            String location = "http://10.16.163.199:4000/fileService/confirmUser/" + userName;
+
+            String html = "Please click <a href=\n" + location + "\n>here.</a>";
+
+            // Now set the actual message
+            message.setContent(html, "text/html; charset=utf-8");
+
+            // Send message
+            Transport.send(message);
+
+            System.out.println("Sent message successfully....");
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
         }
     }
 

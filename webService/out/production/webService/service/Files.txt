@@ -1,5 +1,0 @@
-File1.txt,James
-File2.txt,John
-File3.txt,Bob
-File4.txt,Dude
-File5.txt,Ryan

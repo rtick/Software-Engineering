@@ -13,17 +13,17 @@ public class FileList {
     String files;
     ArrayList<FileI> list = new ArrayList<FileI>();
 
-    public FileList()
+    public FileList(String username)
     {
         this.files="Files";
         try {
-            File file = new File("src/service/Files.txt");
+            File file = new File("./fileSystem/users/" + username + "/fileList.txt");
             FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 String array[] = line.split("\\,");
-                this.list.add(new FileI(array[0], array[1]));
+                this.list.add(new FileI(array[0]));
             }
             fileReader.close();;
         } catch (IOException e) {
