@@ -4,6 +4,8 @@ import com.sun.jersey.multipart.FormDataBodyPart;
 import com.sun.jersey.multipart.FormDataMultiPart;
 import com.sun.net.httpserver.HttpServer;
 import com.sun.jersey.api.container.httpserver.HttpServerFactory;
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataParam;
 
 import java.io.*;
 
@@ -47,19 +49,25 @@ public class serverCalls {
                 .build();
     }
 
-    @POST
     @Path("/uploadFile/{username}")
+    @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response uploadFile(FormDataMultiPart form, @PathParam("username") String username) {
-        System.out.println(form);
-        FormDataBodyPart filePart = form.getField("file");
-        ContentDisposition headerOfFilePart =  filePart.getContentDisposition();
-        InputStream fileInputStream = filePart.getValueAs(InputStream.class);
-        String filePath = "fileSystem/users/" +  username + "Files/" + headerOfFilePart.getFileName();
-        saveFile(fileInputStream, filePath);
-        String output = "File saved to server location using FormDataMultiPart : " + filePath;
+    public Response uploadFile(
+            @FormDataParam("file") InputStream uploadedInputStream,
+            @FormDataParam("file") FormDataContentDisposition fileDetail,
+            @PathParam("username") String username) {
+
+        String uploadedFileLocation = ".fileSystem/users/" + username + "/Files" + fileDetail.getFileName();
+
+        // save it
+        saveFile(uploadedInputStream, uploadedFileLocation);
+
+        String output = "File uploaded via Jersey based RESTFul Webservice to: " + uploadedFileLocation;
+
         return Response.status(200).entity(output).build();
+
     }
+
 
 
     private void saveFile(InputStream uploadedInputStream, String serverLocation) {
@@ -105,6 +113,11 @@ public class serverCalls {
         if (file.isDirectory())
         {
             System.out.println("Found user");
+            file = new File("./fileSystem/users/" + username + "/Files");
+            if (!file.isDirectory())
+            {
+                return Response.status(200).entity("Unconfirmed").build();
+            }
             try {
                 BufferedReader output = new BufferedReader(new FileReader("./fileSystem/users/" + username + "/userInfo.txt"));
                 if (output.readLine().equals(password)) {
