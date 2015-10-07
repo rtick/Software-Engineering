@@ -57,7 +57,7 @@ public class serverCalls {
             @FormDataParam("file") FormDataContentDisposition fileDetail,
             @PathParam("username") String username) {
 
-        String uploadedFileLocation = ".fileSystem/users/" + username + "/Files" + fileDetail.getFileName();
+        String uploadedFileLocation = "./fileSystem/users/" + username + "/Files" + fileDetail.getFileName();
 
         // save it
         saveFile(uploadedInputStream, uploadedFileLocation);
