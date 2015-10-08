@@ -31,16 +31,12 @@ public class serverCalls {
     @GET
     // The Java method will produce content identified by the MIME Media type "text/plain"
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getFileList(@PathParam("username") String username) {
+    public FileList getFileList(@PathParam("username") String username) {
         // Return some cliched textual content
         System.out.println("Sending files");
 
         FileList fileList = new FileList(username);
-        return Response.ok()
-                .entity(fileList)
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-                .build();
+        return fileList;
     }
 
     @Path("/getFile/{username}/{fileName}")
@@ -50,8 +46,6 @@ public class serverCalls {
         File file = new File("./fileSystem/users/" +  username + "/Files/" + fileName); // Initialize this to the File path you want to serve.
         return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
                 .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"" ) //optional
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                 .build();
     }
 
@@ -63,34 +57,15 @@ public class serverCalls {
             @FormDataParam("file") FormDataContentDisposition fileDetail,
             @PathParam("username") String username) {
 
-        String uploadedFileLocation = "./fileSystem/users/" + username + "/Files/" + fileDetail.getFileName();
-        Writer output;
-        try {
-            File file = new File(uploadedFileLocation);
-            if (file.exists())
-            {
-                return Response.ok()
-                        .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://10.16.164.169:8080/main.html', '_self');window.alert('File name exists');</script>")
-                        .header("Access-Control-Allow-Origin", "*")
-                        .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-                        .build();
-            }
-            output = new BufferedWriter(new FileWriter("./fileSystem/users/" + username + "/fileList.txt", true));
-            String line = fileDetail.getFileName() + "\n";
-            output.append(line);
-            output.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String uploadedFileLocation = "./fileSystem/users/" + username + "/Files" + fileDetail.getFileName();
+
         // save it
-        System.out.println(fileDetail.getFileName());
         saveFile(uploadedInputStream, uploadedFileLocation);
 
-        return Response.ok()
-                .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://10.16.164.169:8080/main.html', '_self')</script>")
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-                .build();
+        String output = "File uploaded via Jersey based RESTFul Webservice to: " + uploadedFileLocation;
+
+        return Response.status(200).entity(output).build();
+
     }
 
 
@@ -127,11 +102,7 @@ public class serverCalls {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return Response.ok()
-                .entity("File Added")
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-                .build();
+        return Response.status(200).entity("File Added").build();
     }
 
     @Path("/login/{username}/{password}")
@@ -145,31 +116,19 @@ public class serverCalls {
             file = new File("./fileSystem/users/" + username + "/Files");
             if (!file.isDirectory())
             {
-                return Response.ok()
-                        .entity("Unconfirmed")
-                        .header("Access-Control-Allow-Origin", "*")
-                        .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-                        .build();
+                return Response.status(200).entity("Unconfirmed").build();
             }
             try {
                 BufferedReader output = new BufferedReader(new FileReader("./fileSystem/users/" + username + "/userInfo.txt"));
                 if (output.readLine().equals(password)) {
-                    return Response.ok()
-                            .entity("Successful")
-                            .header("Access-Control-Allow-Origin", "*")
-                            .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-                            .build();
+                    return Response.status(200).entity("Successful").build();
                 }
             }
             catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return Response.ok()
-                .entity("Unsuccessful")
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-                .build();
+        return Response.status(200).entity("Unsuccessful").build();
     }
 
     @Path("/confirmUser/{username}")
@@ -185,11 +144,7 @@ public class serverCalls {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return Response.ok()
-                .entity("Account confirmed!")
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-                .build();
+        return Response.status(200).entity("Account confirmed!").build();
     }
 
     @Path("/registerUser/{username}/{password}/{firstName}/{lastName}/{email}")
@@ -211,11 +166,7 @@ public class serverCalls {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return Response.ok()
-                .entity("User Added")
-                .header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-                .build();
+        return Response.status(200).entity("User Added").build();
     }
 
     private void confirmUser(String userName, String email) {
@@ -258,7 +209,7 @@ public class serverCalls {
             // Set Subject: header field
             message.setSubject("Account Confirmation");
 
-            String location = "http://10.0.0.18:4000/fileService/confirmUser/" + userName;
+            String location = "http://10.16.163.199:4000/fileService/confirmUser/" + userName;
 
             String html = "Please click <a href=\n" + location + "\n>here.</a>";
 

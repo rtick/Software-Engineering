@@ -13,6 +13,7 @@
 	<head>
 		<title> The Vault </title>
 		<link rel="stylesheet" href="forms.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	</head>
 
 	<body>
@@ -47,31 +48,41 @@
 					<input type = "submit" value = "Logout" class = "action-button" formaction ="logout.html"></input>
 				</p>
 			</div>
-			<fieldset>
+			<fieldset id = "set">
 				<legend>The Vault</legend>
 				<p>Please indicate which files you want to download:</p>
-				<div>
-					<p class = "indented form-row">
-						<label><input type="checkbox" name="role_2" value="Resume.txt"> Resume.txt</label>
-					</p>
-				</div>
-				<div>
-					<p class = "indented form-row">
-						<label><input type="checkbox" name="role_2" value="List.txt"> List.txt</label>
-					</p>
-				</div>
-				<div>
-					<p class = "indented form-row">
-						<label><input type="checkbox" name="role_2" value="hw1.txt"> hw1.txt</label>
-					</p>
-				</div>
-    		</fieldset>
-    		<div>
-    			<p class = "submit-row form-row">
+			</div>
+			</fieldset>
+			<div>
+				<p class = "submit-row form-row">
 					<input type = "submit" value = "Download" class = "action-button2" formaction ="main.html"></input>
 				</p>
 			</div>
 		</form>
 	</body>
+<script>
+	$(document).ready(function() {
+		var username = getCookie("fileServiceUsername");
+		document.cookie = "fileServiceUsername=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+		$.get("http://10.16.164.169:4000/fileService/getList/" + username, function( data ) {
+			var files = data.list;
+			for (var i = 0; i < files.length; i++)
+			{
+				var row = "<label><input type='checkbox' name='role_2'>"+ files[i].name +"</label>";
+				row = $(row);
+				var para = document.createElement("p");
+				para.setAttribute("class","submit-row form-row")
+				para.appendChild(row);
+				var div = document.createElement("div");
+				$("#set").appendChild(div);
+			}
+		});
+	});
 
+	function getCookie(name) {
+		var value = "; " + document.cookie;
+		var parts = value.split("; " + name + "=");
+		if (parts.length == 2) return parts.pop().split(";").shift();
+	}
+</script>
 </html>	

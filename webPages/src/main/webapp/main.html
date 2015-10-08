@@ -13,18 +13,24 @@
 	<head>
 		<title> The Vault </title>
 		<link rel="stylesheet" href="forms.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	</head>
 
 	<body>
+	<form action="http://10.16.164.169:4000/fileService/uploadFile/jharkin2" method="post" enctype="multipart/form-data">
+		<input type="file" name="file" size="50" id = "hidden" style="display:none"/>
+		<input type="submit" value="Upload It" id = "confirm" style="display:none"/>
+		</form>
 		<form method = "Post">
 			<div>
     			<p class = "submit-row form-row button">
-					<input type = "submit" value = "Upload" class = "action-button" formaction ="upload.html"></input>
+					<input type = "button" value = "Upload" class = "action-button" id = "button"></input>
 				</p>
 			</div>
 			<div>
+
     			<p class = "submit-row form-row button">
-					<input type = "submit" value = "Download" class = "action-button" formaction ="download.html"></input>
+					<input type = "button" value = "Download" class = "action-button" id = "download"></input>
 				</p>
 			</div>
 			<div>
@@ -49,7 +55,7 @@
 			</div>
 			<fieldset>
 				<legend>The Valut</legend>
-					<table width="100%"> 
+					<table width="100%" id = "table">
 						<thead>
 							<tr>
 								<th>File</th>
@@ -59,27 +65,39 @@
 						</thead>
 						
 						<tbody>
-							<tr>
-								<td>Resume.txt</td>
-								<td>83.5 KB</td>
-								<td>09/13/2015</td>		
-							</tr>
-							
-							<tr>
-								<td>List.txt</td>
-								<td>15 KB</td>
-								<td>09/15/2015</td>
-							</tr>
-							
-							<tr>
-								<td>hw1.txt</td>
-								<td>65 KB</td>
-								<td>09/14/2015</td>
-							</tr>
 						</tbody>
 					</table> 
 			</fieldset>
 		</form>
 	</body>
+<script>
+	$(document).ready(function() {
+		var username = getCookie("fileServiceUsername");
+		document.cookie = "fileServiceUsername=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+		$.get("http://10.16.164.169:4000/fileService/getList/" + username, function( data ) {
+			var files = data.list;
+			for (var i = 0; i < files.length; i++)
+			{
+				$('#table').append('<tr><td>' + files[i].name + '</td><td></td><td></td></tr>');
+			}
+		});
+		$("#download").click(function() {
+			document.cookie="fileServiceUsername=" + username + ";path=/";
+			window.open("download.html", "_self")
+		});
+	});
 
+	function getCookie(name) {
+		var value = "; " + document.cookie;
+		var parts = value.split("; " + name + "=");
+		if (parts.length == 2) return parts.pop().split(";").shift();
+	}
+
+	$('#button').click(function() {
+		console.log("test");
+		$('#hidden').click();
+		$('#confirm').css('display', 'block');
+		$('#form').css('display', 'block');
+	});
+</script>
 </html>

@@ -5,6 +5,7 @@ package service;
  */
 public class FileI {
     private String filename;
+    private String fileowner;
 
     public FileI(String filename) {
         this.filename = filename;
