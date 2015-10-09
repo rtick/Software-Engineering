@@ -45,7 +45,7 @@
 	</body>
 <script>
 	$("#button").click(function() {
-		$.get("http://10.0.0.17:4000/fileService/login/" + $("#username").val() + "/" + $("#password").val(), function( data ) {
+		$.get("http://10.16.164.216:4000/fileService/login/" + $("#username").val() + "/" + $("#password").val(), function( data ) {
 			console.log(data);
 			if (data == "Successful")
 			{

@@ -105,7 +105,7 @@ public class serverCalls {
             if (file.exists())
             {
                 return Response.ok()
-                        .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://10.0.0.17:8080/main.html', '_self');window.alert('File name exists');</script>")
+                        .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://10.16.164.216:8080/main.html', '_self');window.alert('File name exists');</script>")
                         .header("Access-Control-Allow-Origin", "*")
                         .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                         .build();
@@ -123,7 +123,7 @@ public class serverCalls {
         saveFile(uploadedInputStream, uploadedFileLocation);
 
         return Response.ok()
-                .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://10.0.0.17:8080/main.html', '_self')</script>")
+                .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://10.16.164.216:8080/main.html', '_self')</script>")
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                 .build();
@@ -298,7 +298,7 @@ public class serverCalls {
             // Set Subject: header field
             message.setSubject("Account Confirmation");
 
-            String location = "http://10.0.0.17:4000/fileService/confirmUser/" + userName;
+            String location = "http://10.16.164.216:4000/fileService/confirmUser/" + userName;
 
             String html = "Please click <a href=\n" + location + "\n>here.</a>";
 

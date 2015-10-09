@@ -68,8 +68,8 @@
 		var username = getCookie("fileServiceUsername");
 		console.log(username);
 		document.cookie = "fileServiceUsername=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-		$("#form").attr("action", "http://10.0.0.17:4000/fileService/uploadFile/" + username);
-		$.get("http://10.0.0.17:4000/fileService/getList/" + username, function( data ) {
+		$("#form").attr("action", "http://10.16.164.216:4000/fileService/uploadFile/" + username);
+		$.get("http://10.16.164.216:4000/fileService/getList/" + username, function( data ) {
 			for (var i = data.length-1; i >= 0; i--)
 			{
 				var label = document.createElement("label");//"<label><input type='checkbox' name='role_2'>"+ files[i].name +"</label>";
@@ -96,7 +96,7 @@
 		$("#button").click(function() {
 			$('input[type=radio]').each(function () {
 				if (this.checked) {
-					window.open("http://10.0.0.17:4000/fileService/getFile/" + username + "/" + $(this).attr("id"), function( data ) {
+					window.open("http://10.16.164.216:4000/fileService/getFile/" + username + "/" + $(this).attr("id"), function( data ) {
 					 });
 				}
 			});

@@ -54,7 +54,7 @@
 			</div>
 			<fieldset id = "set">
 				<legend>The Vault</legend>
-				<p>Please indicate which files you want to download:</p>
+				<p>Please indicate which files you want to delete:</p>
 				</div>
 			</fieldset>
     		<div>
@@ -69,8 +69,8 @@
 		var username = getCookie("fileServiceUsername");
 		console.log(username);
 		document.cookie = "fileServiceUsername=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-		$("#form").attr("action", "http://10.0.0.17:4000/fileService/uploadFile/" + username);
-		$.get("http://10.0.0.17:4000/fileService/getList/" + username, function( data ) {
+		$("#form").attr("action", "http://10.16.164.216:4000/fileService/uploadFile/" + username);
+		$.get("http://10.16.164.216:4000/fileService/getList/" + username, function( data ) {
 			console.log(data);
 			for (var i = data.length-1; i >= 0; i--)
 			{
@@ -98,7 +98,7 @@
 		$("#button").click(function() {
 			$('input[type=radio]').each(function () {
 				if (this.checked) {
-					$.get("http://10.0.0.17:4000/fileService/deleteFile/" + username + "/" + $(this).attr("id"), function(data) {
+					$.get("http://10.16.164.216:4000/fileService/deleteFile/" + username + "/" + $(this).attr("id"), function(data) {
 						console.log(data);
 						document.cookie="fileServiceUsername=" + username + ";path=/";
 						window.open("delete.html", "_self");
