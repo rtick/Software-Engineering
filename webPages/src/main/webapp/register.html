@@ -20,7 +20,7 @@
 		<form method = "Post">
 
 			<div>
-				<h5>Already have an account? <a href="login.html"> Log In Here</a></h5>
+				<h5>Already have an account? <a href="../resources/login.html"> Log In Here</a></h5>
 			</div>
 
 			<fieldset>
@@ -156,8 +156,8 @@
 	</body>
 <script>
 	$("#button").click(function() {
-		$.get("http://10.0.0.18:4000/fileService/registerUser/" + $("#username").val() + "/" + $("#password").val() + "/" + $("#first_name").val() + "/" + $("#last_name").val() + "/" + $("#email").val(), function( data ) {
-			console.log(data);
+		$.get("http://10.0.0.17:4000/fileService/registerUser/" + $("#username").val() + "/" + $("#password").val() + "/" + $("#first_name").val() + "/" + $("#last_name").val() + "/" + $("#email").val(), function( data ) {
+			window.open("http://10.0.0.17:8080/login.html", "_self");
 		});
 	});
 </script>

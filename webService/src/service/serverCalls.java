@@ -6,15 +6,23 @@ import com.sun.net.httpserver.HttpServer;
 import com.sun.jersey.api.container.httpserver.HttpServerFactory;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONObject;
 
 import java.io.*;
 
+import javax.print.DocFlavor;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.Consumes;
 
+import java.nio.file.Files;
+import javax.ws.rs.Path;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
@@ -34,10 +42,19 @@ public class serverCalls {
     public Response getFileList(@PathParam("username") String username) {
         // Return some cliched textual content
         System.out.println("Sending files");
-
-        FileList fileList = new FileList(username);
+        ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
+        File dir = new File("./fileSystem/users/" +  username + "/Files");
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                ArrayList<String> tempList =  new ArrayList<String>();
+                tempList.add(child.getName());
+                tempList.add(Long.toString((long)Math.ceil(child.length() * 0.001)));
+                list.add(tempList);
+            }
+        }
         return Response.ok()
-                .entity(fileList)
+                .entity(list)
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                 .build();
@@ -49,6 +66,24 @@ public class serverCalls {
     public Response getFile(@PathParam("username") String username, @PathParam("fileName") String fileName) {
         File file = new File("./fileSystem/users/" +  username + "/Files/" + fileName); // Initialize this to the File path you want to serve.
         return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
+                .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"" ) //optional
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
+    }
+
+    @Path("/deleteFile/{username}/{fileName}")
+    @GET
+    public Response deleteFile(@PathParam("username") String username, @PathParam("fileName") String fileName) {
+        File file = new File("./fileSystem/users/" +  username + "/Files/" + fileName); // Initialize this to the File path you want to serve.
+        file.delete();
+        System.out.println("./fileSystem/users/" +  username + "/Files/" + fileName);
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException e){
+            System.out.println("got interrupted!");
+        }        return Response.ok()
+                .entity("File Deleted")
                 .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"" ) //optional
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
@@ -70,7 +105,7 @@ public class serverCalls {
             if (file.exists())
             {
                 return Response.ok()
-                        .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://10.16.164.169:8080/main.html', '_self');window.alert('File name exists');</script>")
+                        .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://10.0.0.17:8080/main.html', '_self');window.alert('File name exists');</script>")
                         .header("Access-Control-Allow-Origin", "*")
                         .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                         .build();
@@ -79,6 +114,7 @@ public class serverCalls {
             String line = fileDetail.getFileName() + "\n";
             output.append(line);
             output.close();
+            System.gc();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -87,7 +123,7 @@ public class serverCalls {
         saveFile(uploadedInputStream, uploadedFileLocation);
 
         return Response.ok()
-                .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://10.16.164.169:8080/main.html', '_self')</script>")
+                .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://10.0.0.17:8080/main.html', '_self')</script>")
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                 .build();
@@ -106,6 +142,7 @@ public class serverCalls {
             }
             outpuStream.flush();
             outpuStream.close();
+            System.gc();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -124,6 +161,7 @@ public class serverCalls {
             String line = fileName + "\n";
             output.append(line);
             output.close();
+            System.gc();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -160,6 +198,8 @@ public class serverCalls {
                             .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                             .build();
                 }
+                output.close();
+                System.gc();
             }
             catch (IOException e) {
                 e.printStackTrace();
@@ -258,7 +298,7 @@ public class serverCalls {
             // Set Subject: header field
             message.setSubject("Account Confirmation");
 
-            String location = "http://10.0.0.18:4000/fileService/confirmUser/" + userName;
+            String location = "http://10.0.0.17:4000/fileService/confirmUser/" + userName;
 
             String html = "Please click <a href=\n" + location + "\n>here.</a>";
 

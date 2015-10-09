@@ -17,9 +17,9 @@
 	</head>
 
 	<body>
-	<form action="http://10.16.164.169:4000/fileService/uploadFile/jharkin2" method="post" enctype="multipart/form-data">
-		<input type="file" name="file" size="50" id = "hidden" style="display:none"/>
-		<input type="submit" value="Upload It" id = "confirm" style="display:none"/>
+	<form method="post" enctype="multipart/form-data" id = "form">
+		<input type="file" name="file" size="50" id = "hidden" style="display:none;margin:auto;width:60%;padding:10px"/>
+		<input type="submit" class = "action-button" id = "confirm" style="display:none;margin:auto;width:60%;padding:10px"/>
 		</form>
 		<form method = "Post">
 			<div>
@@ -40,7 +40,7 @@
 			</div>
 			<div>
 				<p class = "submit-row form-row button">
-					<input type = "submit" value = "Delete" class = "action-button" formaction ="delete.html"></input>
+					<input type = "button" value = "Delete" class = "action-button" id = "delete"></input>
 				</p>
 			</div>
 			<div>
@@ -60,7 +60,6 @@
 							<tr>
 								<th>File</th>
 								<th>Size</th>
-								<th>Date Uploaded</th>
 							</tr>
 						</thead>
 						
@@ -74,16 +73,22 @@
 	$(document).ready(function() {
 		var username = getCookie("fileServiceUsername");
 		document.cookie = "fileServiceUsername=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-		$.get("http://10.16.164.169:4000/fileService/getList/" + username, function( data ) {
-			var files = data.list;
-			for (var i = 0; i < files.length; i++)
+		$("#form").attr("action", "http://10.0.0.17:4000/fileService/uploadFile/" + username);
+		$.get("http://10.0.0.17:4000/fileService/getList/" + username, function( data ) {
+			console.log(data);
+			console.log(data.length);
+			for (var i = data.length - 1; i >= 0; i--)
 			{
-				$('#table').append('<tr><td>' + files[i].name + '</td><td></td><td></td></tr>');
+				$('#table').append('<tr><td>' + data[i][0] + '</td><td>' + data[i][1] + ' KB</td></tr>');
 			}
 		});
 		$("#download").click(function() {
 			document.cookie="fileServiceUsername=" + username + ";path=/";
 			window.open("download.html", "_self")
+		});
+		$("#delete").click(function() {
+			document.cookie="fileServiceUsername=" + username + ";path=/";
+			window.open("delete.html", "_self")
 		});
 	});
 
@@ -96,8 +101,14 @@
 	$('#button').click(function() {
 		console.log("test");
 		$('#hidden').click();
+	});
+	$("#hidden").change(function(){
+		//submit the form here
 		$('#confirm').css('display', 'block');
+		var filename = $('#hidden').val().split('\\').pop();
+		$('#confirm').val("Upload " + filename)
 		$('#form').css('display', 'block');
+
 	});
 </script>
 </html>
