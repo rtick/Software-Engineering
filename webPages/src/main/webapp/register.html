@@ -156,8 +156,8 @@
 	</body>
 <script>
 	$("#button").click(function() {
-		$.get("http://10.16.164.216:4000/fileService/registerUser/" + $("#username").val() + "/" + $("#password").val() + "/" + $("#first_name").val() + "/" + $("#last_name").val() + "/" + $("#email").val(), function( data ) {
-			window.open("http://10.16.164.216:8080/login.html", "_self");
+		$.get("http://fileservice:4000/fileService/registerUser/" + $("#username").val() + "/" + $("#password").val() + "/" + $("#first_name").val() + "/" + $("#last_name").val() + "/" + $("#email").val(), function( data ) {
+			window.open("http://fileservice:8080/login.html", "_self");
 		});
 	});
 </script>

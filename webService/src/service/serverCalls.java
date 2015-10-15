@@ -99,31 +99,22 @@ public class serverCalls {
             @PathParam("username") String username) {
 
         String uploadedFileLocation = "./fileSystem/users/" + username + "/Files/" + fileDetail.getFileName();
-        Writer output;
-        try {
             File file = new File(uploadedFileLocation);
             if (file.exists())
             {
                 return Response.ok()
-                        .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://10.16.164.216:8080/main.html', '_self');window.alert('File name exists');</script>")
+                        .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://fileservice:8080/main2.html', '_self');window.alert('File name exists');</script>")
                         .header("Access-Control-Allow-Origin", "*")
                         .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                         .build();
             }
-            output = new BufferedWriter(new FileWriter("./fileSystem/users/" + username + "/fileList.txt", true));
-            String line = fileDetail.getFileName() + "\n";
-            output.append(line);
-            output.close();
             System.gc();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         // save it
         System.out.println(fileDetail.getFileName());
         saveFile(uploadedInputStream, uploadedFileLocation);
 
         return Response.ok()
-                .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://10.16.164.216:8080/main.html', '_self')</script>")
+                .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://fileservice:8080/main2.html', '_self')</script>")
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                 .build();
@@ -150,23 +141,23 @@ public class serverCalls {
 
 
 
-    @Path("/addFile/{username}/{fileName}")
+
+    @Path("/getName/{username}")
     @GET
-    public Response addFile(@PathParam("fileName") String fileName, @PathParam("username") String username)
+    public Response getName(@PathParam("username") String username)
     {
-        System.out.println("Receiving files");
-        Writer output;
+        String returnVal = "";
         try {
-            output = new BufferedWriter(new FileWriter("./fileSystem/users/" + username + "/fileList.txt", true));
-            String line = fileName + "\n";
-            output.append(line);
-            output.close();
+            BufferedReader output = new BufferedReader(new FileReader("./fileSystem/users/" + username + "/userInfo.txt"));
+            output.readLine();
+            returnVal = output.readLine();
             System.gc();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         return Response.ok()
-                .entity("File Added")
+                .entity(returnVal)
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                 .build();
@@ -217,14 +208,9 @@ public class serverCalls {
     public Response confirmUser(@PathParam("username") String username)
     {
         System.out.println("Confirming User");
-        try {
             File dir = new File("fileSystem/users/" + username + "/Files");
             dir.mkdir();
-            PrintWriter writer = new PrintWriter("fileSystem/users/" + username + "/fileList.txt", "UTF-8");
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
         return Response.ok()
                 .entity("Account confirmed!")
                 .header("Access-Control-Allow-Origin", "*")
@@ -298,7 +284,7 @@ public class serverCalls {
             // Set Subject: header field
             message.setSubject("Account Confirmation");
 
-            String location = "http://10.16.164.216:4000/fileService/confirmUser/" + userName;
+            String location = "http://fileservice:4000/fileService/confirmUser/" + userName;
 
             String html = "Please click <a href=\n" + location + "\n>here.</a>";
 

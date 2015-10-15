@@ -34,7 +34,7 @@
 				</div>
     			<div>
     				<p class = "submit-row form-row">
-						<input type = "button" value = "Log In" class = "action-button" formaction ="main.html" id = "button">
+						<input type = "button" value = "Log In" class = "action-button" id = "button">
 					</p>
 				</div>
 				<div>
@@ -45,12 +45,12 @@
 	</body>
 <script>
 	$("#button").click(function() {
-		$.get("http://10.16.164.216:4000/fileService/login/" + $("#username").val() + "/" + $("#password").val(), function( data ) {
+		$.get("http://fileservice:4000/fileService/login/" + $("#username").val() + "/" + $("#password").val(), function( data ) {
 			console.log(data);
 			if (data == "Successful")
 			{
 				document.cookie="fileServiceUsername=" + $("#username").val() + ";path=/";
-				window.open("main.html", "_self")
+				window.open("main2.html", "_self")
 			}
 			else if (data == "Unconfirmed")
 			{
