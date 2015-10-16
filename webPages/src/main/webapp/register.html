@@ -212,6 +212,8 @@
 	</style>
 <script>
 	$("#register").click(function() {
+		var ip = document.location.host;
+		ip = ip.split(":")[0];
 		if ($("#confirmPassword").val().localeCompare($("#password").val()) != 0)
 		{
 			window.alert("The passwords do not match, please try again");
@@ -221,8 +223,8 @@
 			window.alert("Not a valid email address, please try again");
 		}
 		else {
-			$.get("http://fileservice:4000/fileService/registerUser/" + $("#username").val() + "/" + $("#password").val() + "/" + $("#first_name").val() + "/" + $("#last_name").val() + "/" + $("#email").val(), function (data) {
-				window.open("http://fileservice:8080/login.html", "_self");
+			$.get("http://" + ip + ":4000/fileService/registerUser/" + $("#username").val() + "/" + $("#password").val() + "/" + $("#first_name").val() + "/" + $("#last_name").val() + "/" + $("#email").val() + "/" + ip, function (data) {
+				window.open("login.html", "_self");
 			});
 		}
 		console.log("test");

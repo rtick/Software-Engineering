@@ -90,20 +90,21 @@ public class serverCalls {
                 .build();
     }
 
-    @Path("/uploadFile/{username}")
+    @Path("/uploadFile/{username}/{ip}")
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     public Response uploadFile(
             @FormDataParam("file") InputStream uploadedInputStream,
             @FormDataParam("file") FormDataContentDisposition fileDetail,
-            @PathParam("username") String username) {
+            @PathParam("username") String username,
+            @PathParam("ip") String ip) {
 
         String uploadedFileLocation = "./fileSystem/users/" + username + "/Files/" + fileDetail.getFileName();
             File file = new File(uploadedFileLocation);
             if (file.exists())
             {
                 return Response.ok()
-                        .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://fileservice:8080/main2.html', '_self');window.alert('File name exists');</script>")
+                        .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://" + ip + ":8080/main2.html', '_self');window.alert('File name exists');</script>")
                         .header("Access-Control-Allow-Origin", "*")
                         .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                         .build();
@@ -114,7 +115,7 @@ public class serverCalls {
         saveFile(uploadedInputStream, uploadedFileLocation);
 
         return Response.ok()
-                .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://fileservice:8080/main2.html', '_self')</script>")
+                .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://" + ip + ":8080/main2.html', '_self')</script>")
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                 .build();
@@ -218,10 +219,10 @@ public class serverCalls {
                 .build();
     }
 
-    @Path("/registerUser/{username}/{password}/{firstName}/{lastName}/{email}")
+    @Path("/registerUser/{username}/{password}/{firstName}/{lastName}/{email}/{ip}")
     @GET
     public Response registerUser(@PathParam("username") String username, @PathParam("password") String password, @PathParam("firstName") String firstName,
-                                 @PathParam("lastName") String lastName, @PathParam("email") String email)
+                                 @PathParam("lastName") String lastName, @PathParam("email") String email, @PathParam("ip") String ip)
     {
         System.out.println("Creating user");
         File dir = new File("fileSystem/users/" + username);
@@ -233,7 +234,7 @@ public class serverCalls {
             writer.println(lastName);
             writer.println(email);
             writer.close();
-            confirmUser(username, email);
+            confirmUser(username, email, ip);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -244,7 +245,7 @@ public class serverCalls {
                 .build();
     }
 
-    private void confirmUser(String userName, String email) {
+    private void confirmUser(String userName, String email, String ip) {
         // Recipient's email ID needs to be mentioned.
         String to = email; //change accordingly
 
@@ -284,7 +285,7 @@ public class serverCalls {
             // Set Subject: header field
             message.setSubject("Account Confirmation");
 
-            String location = "http://fileservice:4000/fileService/confirmUser/" + userName;
+            String location = "http://" + ip + ":4000/fileService/confirmUser/" + userName;
 
             String html = "Please click <a href=\n" + location + "\n>here.</a>";
 

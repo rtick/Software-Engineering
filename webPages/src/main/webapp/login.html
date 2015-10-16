@@ -203,7 +203,9 @@
     </style>
 <script>
 	$("#login").click(function() {
-		$.get("http://fileservice:4000/fileService/login/" + $("#username").val() + "/" + $("#password").val(), function( data ) {
+        var ip = document.location.host;
+        ip = ip.split(":")[0];
+        $.get("http://" + ip + ":4000/fileService/login/" + $("#username").val() + "/" + $("#password").val(), function( data ) {
 			console.log(data);
 			if (data == "Successful")
 			{

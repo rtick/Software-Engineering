@@ -181,11 +181,14 @@
 <script>
     $(document).ready(function() {
         var username = getCookie("fileServiceUsername");
+        var ip = document.location.host;
+        ip = ip.split(":")[0];
+        console.log(username);
         document.cookie = "fileServiceUsername=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-        $("#form").attr("action", "http://fileservice:4000/fileService/uploadFile/" + username);
-        $.get("http://fileservice:4000/fileService/getName/" + username, function (data) {
+        $("#form").attr("action", "http://" + ip + ":4000/fileService/uploadFile/" + username + "/" + ip);
+        $.get("http://" + ip + ":4000/fileService/getName/" + username, function (data) {
             $("#welcome").html("Welcome " + data);
-            $.get("http://fileservice:4000/fileService/getList/" + username, function (data) {
+            $.get("http://" + ip + ":4000/fileService/getList/" + username, function (data) {
                 console.log(data);
                 console.log(data.length);
                 for (var i = data.length - 1; i >= 0; i--) {
@@ -194,11 +197,11 @@
             });
         });
         $(document).on('click', "a.lTable", function () {
-            window.open("http://fileservice:4000/fileService/getFile/" + username + "/" + $(this).html(), function (data) {
+            window.open("http://" + ip + ":4000/fileService/getFile/" + username + "/" + $(this).html(), function (data) {
             });
         });
         $(document).on('click', "a.delete", function () {
-            $.get("http://fileservice:4000/fileService/deleteFile/" + username + "/" + $(this).attr("id"), function (data) {
+            $.get("http://" + ip + ":4000/fileService/deleteFile/" + username + "/" + $(this).attr("id"), function (data) {
                 document.cookie = "fileServiceUsername=" + username + ";path=/";
                 window.open("main2.html", "_self");
             });
