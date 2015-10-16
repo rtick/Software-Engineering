@@ -35,14 +35,16 @@
     </nav>
 <div class="page-header" align = "center">
   <h1 style = "font-size:24px" id = "welcome"></h1>
-    <button id = "upload" class="btn btn-default">Upload File</button>
+    <button id = "upload" class="btn btn-default fButton">Upload File</button>
     <br>
     <br>
     <form method="post" enctype="multipart/form-data" id = "form">
-        <input type="file" name="file" size="50" id = "hidden" style="display:none;margin:auto;width:60%;padding:10px"/>
-        <input type="submit" class = "btn btn-default" id = "confirm" style="display:none;margin:auto;width:20%;padding:10px"/>
+        <input type="file" class = "fButton" name="file" size="50" id = "hidden" style="display:none;margin:auto;width:60%;padding:10px"/>
+        <input type="submit" class = "btn btn-default fButton" id = "confirm" style="display:none;margin:auto;padding:10px"/>
     </form>
 </div>
+<br>
+<br>
 <div class = "container-fluid" align = "center">
     <div class = "row">
         <div class="col-sm-8">
@@ -63,6 +65,119 @@
     </div>
 </div>
 </body>
+<style>
+    body {
+        background-color: #00b3ce;
+    }
+    .fButton:hover
+    {
+        background-color:#00b3ce;
+        border-color:black;
+    }
+    .page-header{
+        margin-top: 25px !important;
+        padding: 5px;
+        width: auto;
+        min-width: 320px;
+        max-width: 400px;
+        height: 200px;
+        background-color: #00ffe8;
+        margin:0 auto;
+        border-radius: 10px;
+        border: 1px solid black;
+        text-align: center;
+    }
+    .navbar-default {
+        background-color: #00ffe8;
+        border-color: #00b3ce;
+    }
+    a {
+        color: black;
+    }
+    table, th, td {
+        border: 1px solid black;
+    }
+    th,td {
+        background-color: #00ffe8;
+        color: black;
+    }
+    .table>thead>tr>th
+    {
+        border: 1px solid black;
+    }
+    table {
+        border-collapse: collapse;
+    }
+    .navbar-default .navbar-brand {
+        color: #000000;
+    }
+    .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+        color: #000000;
+    }
+    .navbar-default .navbar-text {
+        color: #000000;
+    }
+    .navbar-default .navbar-nav > li > a {
+        color: #000000;
+    }
+    .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+        color: #000000;
+    }
+    .navbar-default .navbar-nav > li > .dropdown-menu {
+        background-color: #00ffe8;
+    }
+    .navbar-default .navbar-nav > li > .dropdown-menu > li > a {
+        color: #000000;
+    }
+    .navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
+    .navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
+        color: #000000;
+        background-color: #00b3ce;
+    }
+    .navbar-default .navbar-nav > li > .dropdown-menu > li > .divider {
+        background-color: #00ffe8;
+    }
+    .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+        color: #000000;
+        background-color: #00b3ce;
+    }
+    .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+        color: #000000;
+        background-color: #00b3ce;
+    }
+    .navbar-default .navbar-toggle {
+        border-color: #00b3ce;
+    }
+    .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+        background-color: #00b3ce;
+    }
+    .navbar-default .navbar-toggle .icon-bar {
+        background-color: #000000;
+    }
+    .navbar-default .navbar-collapse,
+    .navbar-default .navbar-form {
+        border-color: #000000;
+    }
+    .navbar-default .navbar-link {
+        color: #000000;
+    }
+    .navbar-default .navbar-link:hover {
+        color: #000000;
+    }
+
+    @media (max-width: 767px) {
+        .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+            color: #000000;
+        }
+        .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+            color: #000000;
+        }
+        .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+            color: #000000;
+            background-color: #00b3ce;
+        }
+    }
+</style>
 <script>
     $(document).ready(function() {
         var username = getCookie("fileServiceUsername");
@@ -96,6 +211,8 @@
 
         $('#upload').click(function () {
             console.log("test");
+            $(this).css('background-color', '#00b3ce');
+            $(this).css('border-color', 'black');
             $('#hidden').click();
         });
         $("#hidden").change(function () {

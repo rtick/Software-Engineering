@@ -12,39 +12,193 @@
 
 	<head>
 		<title> Login </title>
-		<link rel="stylesheet" href="forms.css">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	</head>
-
 	<body>
-		<form method = "Post">
-			<fieldset>
-				<legend> Login</legend>
-				<div>
-					<p class = "float form-row">
-						<label for = "username">User Name: </label>
-						<input name = "username" type = "text" id = "username">
-					</p>
-				</div>
-				<div>
-					<p class = "float form-row">
-						<label for = "password"> Password:</label>
-						<input name="password" type = "password" id = "password">
-					</p>
-				</div>
-    			<div>
-    				<p class = "submit-row form-row">
-						<input type = "button" value = "Log In" class = "action-button" id = "button">
-					</p>
-				</div>
-				<div>
-					<p class = "indented form-row"> Don't have an account? <a href="register.html"> Register Here</a> </p>
-				</div>
-			</fieldset>	
-		</form>
+    <nav role="navigation" class="navbar navbar-default">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand">FileUpload</a>
+        </div>
+        <!-- Collection of nav links and other content for toggling -->
+        <div id="navbarCollapse" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="login.html">Login</a></li>
+                <li><a href="register.html">Register</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="login">
+            <h4>FileUpload Login</h4>
+            <hr>
+            <form class="login-inner">
+                <input type="email" class="form-control email" id="username" placeholder="Enter Username">
+                <input type="password" class="form-control password" id="password" placeholder="Password">
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="remember" value="Remember me" style="color:white"> Remember me
+                </label>
+                <input class="btn btn-block btn-lg btn-default submit" type="submit" value="Login" id = "login">
+            </form>
+            <a href="register.html" class="btn btn-sm btn-default register">Register</a>
+            <a href="#" class="btn btn-sm btn-default forgot">Forgot Password</a>
+        </div>
+    </div>
 	</body>
+    <style>
+        body {
+            background-color: #00b3ce;
+        }
+        .login {
+            margin-top: 25px !important;
+            padding: 5px;
+            width: auto;
+            min-width: 320px;
+            max-width: 400px;
+            height: 400px;
+            background-color: #00ffe8;
+            margin:0 auto;
+            border-radius: 10px;
+            border: 1px solid black;
+            text-align: center;
+        }
+        .login-inner {
+            margin:0 auto;
+            max-width: 380px;
+            width: auto;
+        }
+        .login>h4 {
+            font-size: 20px;
+            margin-left: 5px;
+            font-weight: 600;
+            color: black;
+        }
+        .email {
+            margin-bottom: 5px;
+        }
+        .password {
+            margin-bottom: 5px;
+        }
+        .submit {
+            margin-top: 5px;
+        }
+        .submit:hover
+        {
+            background-color:#00b3ce;
+            border-color:black;
+        }
+        .forgot {
+            min-width:50px;
+            width: 49%;
+            float: right;
+            margin-top: 20px;
+        }
+        .forgot:hover
+        {
+            background-color:#00b3ce;
+            border-color:black;
+        }
+        .register {
+            width: 50%;
+            float: left;
+            margin-top: 20px;
+        }
+        .register:hover
+        {
+            background-color:#00b3ce;
+            border-color:black;
+        }
+        @media (max-width: 320px) {
+            .forgot {
+                font-size: 9px;
+                font-weight: 700;
+                padding: 8px;
+            }
+        }
+        .navbar-default {
+            background-color: #00ffe8;
+            border-color: #00b3ce;
+        }
+        .navbar-default .navbar-brand {
+            color: #000000;
+        }
+        .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+            color: #000000;
+        }
+        .navbar-default .navbar-text {
+            color: #000000;
+        }
+        .navbar-default .navbar-nav > li > a {
+            color: #000000;
+        }
+        .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+            color: #000000;
+        }
+        .navbar-default .navbar-nav > li > .dropdown-menu {
+            background-color: #00ffe8;
+        }
+        .navbar-default .navbar-nav > li > .dropdown-menu > li > a {
+            color: #000000;
+        }
+        .navbar-default .navbar-nav > li > .dropdown-menu > li > a:hover,
+        .navbar-default .navbar-nav > li > .dropdown-menu > li > a:focus {
+            color: #000000;
+            background-color: #00b3ce;
+        }
+        .navbar-default .navbar-nav > li > .dropdown-menu > li > .divider {
+            background-color: #00ffe8;
+        }
+        .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+            color: #000000;
+            background-color: #00b3ce;
+        }
+        .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+            color: #000000;
+            background-color: #00b3ce;
+        }
+        .navbar-default .navbar-toggle {
+            border-color: #00b3ce;
+        }
+        .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+            background-color: #00b3ce;
+        }
+        .navbar-default .navbar-toggle .icon-bar {
+            background-color: #000000;
+        }
+        .navbar-default .navbar-collapse,
+        .navbar-default .navbar-form {
+            border-color: #000000;
+        }
+        .navbar-default .navbar-link {
+            color: #000000;
+        }
+        .navbar-default .navbar-link:hover {
+            color: #000000;
+        }
+
+        @media (max-width: 767px) {
+            .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+                color: #000000;
+            }
+            .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+                color: #000000;
+            }
+            .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+                color: #000000;
+                background-color: #00b3ce;
+            }
+        }
+    </style>
 <script>
-	$("#button").click(function() {
+	$("#login").click(function() {
 		$.get("http://fileservice:4000/fileService/login/" + $("#username").val() + "/" + $("#password").val(), function( data ) {
 			console.log(data);
 			if (data == "Successful")
