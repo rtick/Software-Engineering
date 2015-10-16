@@ -1,0 +1,22 @@
+|classes
+
+A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z.
+
+|attributes (features)
+
+horizontal position of box : continuous.
+vertical position of box : continuous.
+width of box : continuous.
+height of box : continuous.
+total # on pixels : continuous.
+mean x of on pixels in box : continuous.
+mean y of on pixels in box : continuous.
+mean x variance : continuous.
+mean y variance : continuous.
+mean x y correlation : continuous.
+mean of x * x * y : continuous.
+mean of x * y * y : continuous.
+mean edge count left to right : continuous.
+correlation of x-ege with y : continuous.
+mean edge count bottom to top : continuous.
+correlation of y-ege with x : continuous.
