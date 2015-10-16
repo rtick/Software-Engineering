@@ -104,7 +104,7 @@ public class serverCalls {
             if (file.exists())
             {
                 return Response.ok()
-                        .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://" + ip + ":8080/main2.html', '_self');window.alert('File name exists');</script>")
+                        .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://" + ip + ":8080/main.html', '_self');window.alert('File name exists');</script>")
                         .header("Access-Control-Allow-Origin", "*")
                         .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                         .build();
@@ -115,7 +115,7 @@ public class serverCalls {
         saveFile(uploadedInputStream, uploadedFileLocation);
 
         return Response.ok()
-                .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://" + ip + ":8080/main2.html', '_self')</script>")
+                .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://" + ip + ":8080/main.html', '_self')</script>")
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                 .build();
