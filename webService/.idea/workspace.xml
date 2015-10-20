@@ -23,14 +23,26 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="serverCalls.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="serverCalls.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/service/serverCalls.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.47503567">
-              <caret line="117" column="134" selection-start-line="117" selection-start-column="134" selection-end-line="117" selection-end-column="134" />
+            <state vertical-scroll-proportion="-43.37931">
+              <caret line="152" column="5" selection-start-line="152" selection-start-column="5" selection-end-line="152" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#12620#12854#0" expanded="true" />
+                <element signature="e#12853#12854#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="test.txt.txt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/fileSystem/users/jharkin2/Files/test.txt.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -67,6 +79,7 @@
         <option value="$PROJECT_DIR$/src/service/FileI.java" />
         <option value="$PROJECT_DIR$/fileSystem/users/jharkin2/fileList.txt" />
         <option value="$PROJECT_DIR$/fileSystem/users/jharkin2/Files/test" />
+        <option value="$PROJECT_DIR$/fileSystem/users/jharkin2/Files/test.txt.txt" />
         <option value="$PROJECT_DIR$/src/service/serverCalls.java" />
       </list>
     </option>
@@ -113,6 +126,9 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -162,12 +178,43 @@
               <option name="myItemId" value="fileSystem" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="users" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jharkin2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fileSystem" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="users" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jharkin2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Files" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -184,7 +231,7 @@
     <property name="ToolWindowEvent Log.ShowToolbar" value="false" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/James/IdeaProjects/webService/src/example/Files.txt" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../webPages" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -807,12 +854,15 @@
       <workItem from="1444926862323" duration="255000" />
       <workItem from="1444927825245" duration="269000" />
       <workItem from="1444947759775" duration="7894000" />
-      <workItem from="1445006390300" duration="3656000" />
+      <workItem from="1445006390300" duration="4253000" />
+      <workItem from="1445043353585" duration="605000" />
+      <workItem from="1445178061215" duration="4725000" />
+      <workItem from="1445282324678" duration="7254000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75018000" />
+    <option name="totallyTimeSpent" value="88199000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1604" height="867" extended-state="1" />
@@ -827,10 +877,10 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3469657" sideWeight="0.37132102" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27308708" sideWeight="0.37132102" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2745592" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2745592" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -867,7 +917,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/service/serverCalls.java</url>
-          <line>235</line>
+          <line>264</line>
           <properties />
         </line-breakpoint>
       </breakpoints>
@@ -883,9 +933,11 @@
     <entry file="file://$PROJECT_DIR$/src/service/serverCalls.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="41" column="24" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#12620#12854#0" expanded="true" />
+            <element signature="e#12853#12854#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -896,6 +948,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#12620#12854#0" expanded="true" />
+            <element signature="e#12853#12854#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -906,6 +960,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#12620#12854#0" expanded="true" />
+            <element signature="e#12853#12854#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -916,6 +972,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#12620#12854#0" expanded="true" />
+            <element signature="e#12853#12854#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -926,6 +984,8 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#12620#12854#0" expanded="true" />
+            <element signature="e#12853#12854#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -936,6 +996,44 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#12620#12854#0" expanded="true" />
+            <element signature="e#12853#12854#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/serverCalls.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#12620#12854#0" expanded="true" />
+            <element signature="e#12853#12854#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/serverCalls.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#12620#12854#0" expanded="true" />
+            <element signature="e#12853#12854#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/serverCalls.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#12620#12854#0" expanded="true" />
+            <element signature="e#12853#12854#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -964,11 +1062,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/service/serverCalls.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.47503567">
-          <caret line="117" column="134" selection-start-line="117" selection-start-column="134" selection-end-line="117" selection-end-column="134" />
+        <state vertical-scroll-proportion="-43.37931">
+          <caret line="152" column="5" selection-start-line="152" selection-start-column="5" selection-end-line="152" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#12620#12854#0" expanded="true" />
+            <element signature="e#12853#12854#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fileSystem/users/jharkin2/Files/test.txt.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

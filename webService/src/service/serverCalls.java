@@ -90,6 +90,37 @@ public class serverCalls {
                 .build();
     }
 
+    @Path("/uploadText/{username}/{ip}/{name}")
+    @POST
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    public Response uploadText(
+            @FormDataParam("file") InputStream uploadedInputStream,
+            @FormDataParam("file") FormDataContentDisposition fileDetail,
+            @PathParam("username") String username,
+            @PathParam("ip") String ip,
+            @PathParam("name") String name) {
+        String uploadedFileLocation = "./fileSystem/users/" + username + "/Files/" + name;
+            File file = new File(uploadedFileLocation);
+        System.out.println(file.exists());
+        if (file.exists())
+            {
+                return Response.ok()
+                        .entity("document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://" + ip + ":8080/main.html', '_self');window.alert('File name exists');")
+                        .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                        .build();
+            }
+            System.gc();
+        // save it
+        System.out.println(fileDetail.getFileName());
+        saveFile(uploadedInputStream, uploadedFileLocation);
+        return Response.ok()
+                .entity("document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://" + ip + ":8080/main.html', '_self')")
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
+    }
+
     @Path("/uploadFile/{username}/{ip}")
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -100,16 +131,16 @@ public class serverCalls {
             @PathParam("ip") String ip) {
 
         String uploadedFileLocation = "./fileSystem/users/" + username + "/Files/" + fileDetail.getFileName();
-            File file = new File(uploadedFileLocation);
-            if (file.exists())
-            {
-                return Response.ok()
-                        .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://" + ip + ":8080/main.html', '_self');window.alert('File name exists');</script>")
-                        .header("Access-Control-Allow-Origin", "*")
-                        .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-                        .build();
-            }
-            System.gc();
+        File file = new File(uploadedFileLocation);
+        if (file.exists())
+        {
+            return Response.ok()
+                    .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://" + ip + ":8080/main.html', '_self');window.alert('File name exists');</script>")
+                    .header("Access-Control-Allow-Origin", "*")
+                    .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                    .build();
+        }
+        System.gc();
         // save it
         System.out.println(fileDetail.getFileName());
         saveFile(uploadedInputStream, uploadedFileLocation);
@@ -120,8 +151,6 @@ public class serverCalls {
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                 .build();
     }
-
-
 
     private void saveFile(InputStream uploadedInputStream, String serverLocation) {
         try {
