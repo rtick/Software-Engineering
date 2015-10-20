@@ -222,15 +222,23 @@
 			window.alert("Not a valid email address, please try again");
 		}
 		else {
-			$.get("http://" + ip + ":4000/fileService/registerUser/" + $("#username").val() + "/" + $("#password").val() + "/" + $("#first_name").val() + "/" + $("#last_name").val() + "/" + $("#email").val() + "/" + ip, function (data) {
+			var password = CryptoJS.AES.encrypt($("#password").val(), $("#password").val()).toString();
+			password = replaceAll("/","_",password);
+			var firstName = CryptoJS.AES.encrypt($("#first_name").val(), $("#password").val()).toString();
+			firstName = replaceAll("/","_",firstName);
+			var lastName = CryptoJS.AES.encrypt($("#last_name").val(), $("#password").val()).toString();
+			lastName = replaceAll("/","_",lastName);
+			$.get("http://" + ip + ":4000/fileService/registerUser/" + $("#username").val() + "/" + password + "/" + firstName + "/" + lastName + "/" + $("#email").val() + "/" + ip, function (data) {
 				window.open("login.html", "_self");
 			});
 		}
-		console.log("test");
 	});
 	function validateEmail(email) {
 		var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 		return re.test(email);
+	}
+	function replaceAll(find, replace, str) {
+		return str.replace(new RegExp(find, 'g'), replace);
 	}
 </script>
 </html>

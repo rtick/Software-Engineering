@@ -105,7 +105,7 @@ public class serverCalls {
         if (file.exists())
             {
                 return Response.ok()
-                        .entity("document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://" + ip + ":8080/main.html', '_self');window.alert('File name exists');")
+                        .entity("window.open('http://" + ip + ":8080/main.html', '_self');window.alert('File name exists');")
                         .header("Access-Control-Allow-Origin", "*")
                         .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                         .build();
@@ -115,7 +115,7 @@ public class serverCalls {
         System.out.println(fileDetail.getFileName());
         saveFile(uploadedInputStream, uploadedFileLocation);
         return Response.ok()
-                .entity("document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://" + ip + ":8080/main.html', '_self')")
+                .entity("window.open('http://" + ip + ":8080/main.html', '_self')")
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                 .build();
@@ -135,7 +135,7 @@ public class serverCalls {
         if (file.exists())
         {
             return Response.ok()
-                    .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://" + ip + ":8080/main.html', '_self');window.alert('File name exists');</script>")
+                    .entity("<script>window.open('http://" + ip + ":8080/main.html', '_self');window.alert('File name exists');</script>")
                     .header("Access-Control-Allow-Origin", "*")
                     .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                     .build();
@@ -146,7 +146,7 @@ public class serverCalls {
         saveFile(uploadedInputStream, uploadedFileLocation);
 
         return Response.ok()
-                .entity("<script>document.cookie='fileServiceUsername="+ username + ";path=/';window.open('http://" + ip + ":8080/main.html', '_self')</script>")
+                .entity("<script>window.open('http://" + ip + ":8080/main.html', '_self')</script>")
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                 .build();
@@ -195,7 +195,7 @@ public class serverCalls {
 
     @Path("/login/{username}/{password}")
     @GET
-    public Response login(@PathParam("username") String username, @PathParam("password") String password)
+    public Response login(@PathParam("username") String username)
     {
         File file = new File("./fileSystem/users/" + username);
         if (file.isDirectory())
@@ -212,15 +212,14 @@ public class serverCalls {
             }
             try {
                 BufferedReader output = new BufferedReader(new FileReader("./fileSystem/users/" + username + "/userInfo.txt"));
-                if (output.readLine().equals(password)) {
-                    return Response.ok()
-                            .entity("Successful")
-                            .header("Access-Control-Allow-Origin", "*")
-                            .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-                            .build();
-                }
+                String password = output.readLine();
                 output.close();
                 System.gc();
+                return Response.ok()
+                        .entity(password)
+                        .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                        .build();
             }
             catch (IOException e) {
                 e.printStackTrace();

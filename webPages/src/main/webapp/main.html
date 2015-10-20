@@ -177,16 +177,17 @@
 <script>
     $(document).ready(function() {
         var username = getCookie("fileServiceUsername");
+        var password = getCookie("fileServicePassword");
         var ip = document.location.host;
         ip = ip.split(":")[0];
-        console.log(username);
         document.cookie = "fileServiceUsername=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+        document.cookie = "fileServicePassword=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
         $("#form").attr("action", "http://" + ip + ":4000/fileService/uploadFile/" + username + "/" + ip);
         $.get("http://" + ip + ":4000/fileService/getName/" + username, function (data) {
-            $("#welcome").html("Welcome " + data);
+            data = replaceAll("_","/",data);
+            var name = CryptoJS.AES.decrypt(data, password).toString(CryptoJS.enc.Latin1);
+            $("#welcome").html("Welcome " + name);
             $.get("http://" + ip + ":4000/fileService/getList/" + username, function (data) {
-                console.log(data);
-                console.log(data.length);
                 for (var i = data.length - 1; i >= 0; i--) {
                     $('#table').append('<tr><td><li style="list-style-type: none"><a role="button" class = "lTable">' + data[i][0] + '</a></li></td><td>' + data[i][1] + ' KB</td><td></td><td><li style="list-style-type: none"><a role="button" class = "delete" id = "' + data[i][0] + '"><i class="fa fa-trash-o"></a></td></tr>');
                 }
@@ -196,8 +197,7 @@
             var name = $(this).html();
             if (name.split('.').pop() == "txt") {
                 $.get("http://" + ip + ":4000/fileService/getFile/" + username + "/" + name, function (data) {
-                    var decrypted = CryptoJS.AES.decrypt(data, "AEIOU123").toString(CryptoJS.enc.Latin1);
-                    console.log(decrypted)
+                    var decrypted = CryptoJS.AES.decrypt(data, password).toString(CryptoJS.enc.Latin1);
                     $("#download").attr('href', 'data:application/octet-stream,' + decrypted);
                     $("#download").attr('download', name);
                     document.getElementById('download').click();
@@ -214,6 +214,7 @@
             if (r == true) {
                 $.get("http://" + ip + ":4000/fileService/deleteFile/" + username + "/" + $(this).attr("id"), function (data) {
                     document.cookie = "fileServiceUsername=" + username + ";path=/";
+                    document.cookie = "fileServicePassword=" + password + ";path=/";
                     window.open("main.html", "_self");
                 });
             }
@@ -243,12 +244,11 @@
                 var fr = new FileReader();
                 fr.onload = function (e) {
                     var rawData = fr.result;
-                    var encrypted = CryptoJS.AES.encrypt(fr.result, "AEIOU123");
-                    console.log(encrypted);
+                    var encrypted = CryptoJS.AES.encrypt(fr.result, password);
                     var fd = new FormData();
-                    console.log(fd);
-                    console.log("tesasasst");
                     fd.append('file', encrypted);
+                    document.cookie = "fileServiceUsername=" + username + ";path=/";
+                    document.cookie = "fileServicePassword=" + password + ";path=/";
                     $.ajax({
                         url: "http://" + ip + ":4000/fileService/uploadText/" + username + "/" + ip + "/" + $('#hidden').val().split('\\').pop(),
                         data: fd,
@@ -264,10 +264,14 @@
             }
             else
             {
-                console.log($("#hidden")[0].files[0]);
+                document.cookie = "fileServiceUsername=" + username + ";path=/";
+                document.cookie = "fileServicePassword=" + password + ";path=/";
                 $("#confirm2").click();
             }
         })
     });
+    function replaceAll(find, replace, str) {
+        return str.replace(new RegExp(find, 'g'), replace);
+    }
 </script>
 </html>

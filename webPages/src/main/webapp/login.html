@@ -15,7 +15,12 @@
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <script src="./rollups/aes.js"></script>
+        <script src="./rollups/sha1.js"></script>
+        <script src="./components/core-min.js"></script>
+        <script src="./components/enc-base64-min.js"></script>
+        <script src="./components/enc-utf16.js"></script>
 	</head>
 	<body>
     <nav role="navigation" class="navbar navbar-default">
@@ -199,22 +204,35 @@
 	$("#login").click(function() {
         var ip = document.location.host;
         ip = ip.split(":")[0];
-        $.get("http://" + ip + ":4000/fileService/login/" + $("#username").val() + "/" + $("#password").val(), function( data ) {
-			console.log(data);
-			if (data == "Successful")
-			{
-				document.cookie="fileServiceUsername=" + $("#username").val() + ";path=/";
-				window.open("main.html", "_self")
-			}
-			else if (data == "Unconfirmed")
+        var password = CryptoJS.AES.encrypt($("#password").val(), $("#password").val()).toString();
+        password = replaceAll("/","*",password);
+        $.get("http://" + ip + ":4000/fileService/login/" + $("#username").val() + "/" + password, function( data ) {
+			if (data == "Unconfirmed")
 			{
 				window.alert("Please verify your email")
 			}
-			else if (data == "Unsuccessful")
+            else if (data == "Unsuccessful")
+            {
+                window.alert("Username or password incorrect");
+            }
+			else
 			{
-				window.alert("Username or password incorrect")
+                data = replaceAll("_","/",data);
+                var password = CryptoJS.AES.decrypt(data, $("#password").val()).toString(CryptoJS.enc.Latin1);
+                if (password == $("#password").val())
+                {
+                    document.cookie="fileServiceUsername=" + $("#username").val() + ";path=/";
+                    document.cookie="fileServicePassword=" + $("#password").val() + ";path=/";
+                    window.open("main.html", "_self")
+                }
+                else {
+                    window.alert("Username or password incorrect");
+                }
 			}
 		});
 	});
+    function replaceAll(find, replace, str) {
+        return str.replace(new RegExp(find, 'g'), replace);
+    }
 </script>
 </html>
