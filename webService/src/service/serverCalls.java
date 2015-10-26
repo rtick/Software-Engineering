@@ -359,9 +359,11 @@ public class serverCalls {
                 .build();
     }
 
-    @Path("/confirmUser/{username}")
+    @Path("/confirmUser/{username}/{ip}")
     @GET
-    public Response confirmUser(@PathParam("username") String username)
+    @Produces("text/html")
+    public Response confirmUser(@PathParam("username") String username,
+                                @PathParam("ip") String ip)
     {
         System.out.println("Confirming User");
             File dir = new File("fileSystem/users/" + username + "/Files");
@@ -373,8 +375,10 @@ public class serverCalls {
             dir = new File("fileSystem/users/" + username + "/SharedFiles");
             dir.mkdir();
 
+        String location = "http://" + ip + ":8080/login.html";
+
         return Response.ok()
-                .entity("Account confirmed!")
+                .entity("Account Confirmed! Visit <a href=\n" + location + "\n>here</a> to login.")
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                 .build();
@@ -446,9 +450,12 @@ public class serverCalls {
             // Set Subject: header field
             message.setSubject("Account Confirmation");
 
-            String location = "http://" + ip + ":4000/fileService/confirmUser/" + userName;
+            String location = "http://" + ip + ":4000/fileService/confirmUser/" + userName + "/" + ip;
 
-            String html = "Please click <a href=\n" + location + "\n>here.</a>";
+            String html = "Thank you for creating a FileService account. Your username is: " + userName + "<br><br>Please confirm your account by visiting the " +
+                    "link below: <a href=\n" + location + "\n>here</a><br><br>Clicking the link will register your account with us. It's fast and easy! " +
+                    "If you cannot click the link, copy and paste the full URL into your web browser.<br><br>If you do not want to confirm your account, or this " +
+                    "email was generated in error, please ignore this message.<br><br>Thanks!<br>FileService Security Team";
 
             // Now set the actual message
             message.setContent(html, "text/html; charset=utf-8");

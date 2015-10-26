@@ -57,11 +57,12 @@
       <file leaf-file-name="main.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.48456058">
-              <caret line="57" column="100" selection-start-line="57" selection-start-column="100" selection-end-line="57" selection-end-column="100" />
+            <state vertical-scroll-proportion="0.72684085">
+              <caret line="63" column="43" selection-start-line="63" selection-start-column="43" selection-end-line="63" selection-end-column="43" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#h1#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#button#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <marker date="1445901649881" expanded="true" signature="7923:7944" placeholder="..." />
                 <marker date="1445901649881" expanded="true" signature="8076:8097" placeholder="..." />
                 <marker date="1445901649881" expanded="true" signature="8701:8722" placeholder="..." />
@@ -743,16 +744,16 @@
       <workItem from="1445282373297" duration="1619000" />
       <workItem from="1445372402889" duration="6717000" />
       <workItem from="1445379611489" duration="4534000" />
-      <workItem from="1445485842262" duration="15228000" />
+      <workItem from="1445485842262" duration="15956000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="99455000" />
+    <option name="totallyTimeSpent" value="100183000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="3" y="0" width="1604" height="867" extended-state="1" />
-    <editor active="true" />
+    <frame x="3" y="0" width="1604" height="867" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -872,6 +873,7 @@
           <folding>
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#h1#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <marker date="1445901649881" expanded="true" signature="7923:7944" placeholder="..." />
             <marker date="1445901649881" expanded="true" signature="8076:8097" placeholder="..." />
             <marker date="1445901649881" expanded="true" signature="8701:8722" placeholder="..." />
@@ -937,6 +939,7 @@
           <folding>
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#h1#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <marker date="1445901649881" expanded="true" signature="7923:7944" placeholder="..." />
             <marker date="1445901649881" expanded="true" signature="8076:8097" placeholder="..." />
             <marker date="1445901649881" expanded="true" signature="8701:8722" placeholder="..." />
@@ -986,6 +989,7 @@
           <folding>
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#h1#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <marker date="1445901649881" expanded="true" signature="7923:7944" placeholder="..." />
             <marker date="1445901649881" expanded="true" signature="8076:8097" placeholder="..." />
             <marker date="1445901649881" expanded="true" signature="8701:8722" placeholder="..." />
@@ -1238,11 +1242,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/main.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48456058">
-          <caret line="57" column="100" selection-start-line="57" selection-start-column="100" selection-end-line="57" selection-end-column="100" />
+        <state vertical-scroll-proportion="0.72684085">
+          <caret line="63" column="43" selection-start-line="63" selection-start-column="43" selection-end-line="63" selection-end-column="43" />
           <folding>
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#h1#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <marker date="1445901649881" expanded="true" signature="7923:7944" placeholder="..." />
             <marker date="1445901649881" expanded="true" signature="8076:8097" placeholder="..." />
             <marker date="1445901649881" expanded="true" signature="8701:8722" placeholder="..." />
