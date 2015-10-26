@@ -17,6 +17,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.Consumes;
 
+import org.apache.commons.io.*;
+
 import java.nio.file.Files;
 import javax.ws.rs.Path;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -42,15 +44,63 @@ public class serverCalls {
     public Response getFileList(@PathParam("username") String username) {
         // Return some cliched textual content
         System.out.println("Sending files");
-        ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
-        File dir = new File("./fileSystem/users/" +  username + "/Files");
+        ArrayList<ArrayList<ArrayList<String>>> list = new ArrayList<ArrayList<ArrayList<String>>>();
+        File dir = new File("./fileSystem/users/" +  username + "/Files/Encrypted");
+        File[] directoryListing = dir.listFiles();
+        ArrayList<ArrayList<String>> tempList1 =  new ArrayList<ArrayList<String>>();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                ArrayList<String> tempList2 =  new ArrayList<String>();
+                tempList2.add(child.getName());
+                tempList2.add(Long.toString((long)Math.ceil(child.length() * 0.001)));
+                tempList1.add(tempList2);
+            }
+        }
+        list.add(tempList1);
+        dir = new File("./fileSystem/users/" +  username + "/Files/Decrypted");
+        directoryListing = dir.listFiles();
+        tempList1 =  new ArrayList<ArrayList<String>>();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                ArrayList<String> tempList2 =  new ArrayList<String>();
+                tempList2.add(child.getName());
+                tempList2.add(Long.toString((long)Math.ceil(child.length() * 0.001)));
+                tempList1.add(tempList2);
+            }
+        }
+        list.add(tempList1);
+        dir = new File("./fileSystem/users/" +  username + "/SharedFiles");
+        directoryListing = dir.listFiles();
+        tempList1 =  new ArrayList<ArrayList<String>>();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                ArrayList<String> tempList2 =  new ArrayList<String>();
+                tempList2.add(child.getName());
+                tempList2.add(Long.toString((long)Math.ceil(child.length() * 0.001)));
+                tempList1.add(tempList2);
+            }
+        }
+        list.add(tempList1);
+        return Response.ok()
+                .entity(list)
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
+    }
+
+    @Path("/getUsers")
+    @GET
+    // The Java method will produce content identified by the MIME Media type "text/plain"
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getUserList() {
+        // Return some cliched textual content
+        System.out.println("Sending files");
+        ArrayList<String> list = new ArrayList<String>();
+        File dir = new File("./fileSystem/users/");
         File[] directoryListing = dir.listFiles();
         if (directoryListing != null) {
             for (File child : directoryListing) {
-                ArrayList<String> tempList =  new ArrayList<String>();
-                tempList.add(child.getName());
-                tempList.add(Long.toString((long)Math.ceil(child.length() * 0.001)));
-                list.add(tempList);
+                list.add(child.getName());
             }
         }
         return Response.ok()
@@ -60,11 +110,11 @@ public class serverCalls {
                 .build();
     }
 
-    @Path("/getFile/{username}/{fileName}")
+    @Path("/getEncryptedFile/{username}/{fileName}")
     @GET
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response getFile(@PathParam("username") String username, @PathParam("fileName") String fileName) {
-        File file = new File("./fileSystem/users/" +  username + "/Files/" + fileName); // Initialize this to the File path you want to serve.
+    public Response getEncryptedFile(@PathParam("username") String username, @PathParam("fileName") String fileName) {
+        File file = new File("./fileSystem/users/" +  username + "/Files/Encrypted/" + fileName); // Initialize this to the File path you want to serve.
         return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
                 .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"" ) //optional
                 .header("Access-Control-Allow-Origin", "*")
@@ -72,12 +122,36 @@ public class serverCalls {
                 .build();
     }
 
-    @Path("/deleteFile/{username}/{fileName}")
+    @Path("/getDecryptedFile/{username}/{fileName}")
     @GET
-    public Response deleteFile(@PathParam("username") String username, @PathParam("fileName") String fileName) {
-        File file = new File("./fileSystem/users/" +  username + "/Files/" + fileName); // Initialize this to the File path you want to serve.
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response getDecryptedFile(@PathParam("username") String username, @PathParam("fileName") String fileName) {
+        File file = new File("./fileSystem/users/" +  username + "/Files/Decrypted/" + fileName); // Initialize this to the File path you want to serve.
+        return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
+                .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"" ) //optional
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
+    }
+
+    @Path("/getSharedFile/{username}/{fileName}")
+    @GET
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response getSharedFile(@PathParam("username") String username, @PathParam("fileName") String fileName) {
+        File file = new File("./fileSystem/users/" +  username + "/SharedFiles/" + fileName); // Initialize this to the File path you want to serve.
+        return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
+                .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"" ) //optional
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
+    }
+
+    @Path("/deleteEncryptedFile/{username}/{fileName}")
+    @GET
+    public Response deleteEncryptedFile(@PathParam("username") String username, @PathParam("fileName") String fileName) {
+        File file = new File("./fileSystem/users/" +  username + "/Files/Encrypted/" + fileName); // Initialize this to the File path you want to serve.
         file.delete();
-        System.out.println("./fileSystem/users/" +  username + "/Files/" + fileName);
+        System.out.println("./fileSystem/users/" +  username + "/Files/Encrypted/" + fileName);
         try{
             Thread.sleep(1000);
         }catch(InterruptedException e){
@@ -90,16 +164,52 @@ public class serverCalls {
                 .build();
     }
 
-    @Path("/uploadText/{username}/{ip}/{name}")
+    @Path("/deleteDecryptedFile/{username}/{fileName}")
+    @GET
+    public Response deleteDecryptedFile(@PathParam("username") String username, @PathParam("fileName") String fileName) {
+        File file = new File("./fileSystem/users/" +  username + "/Files/Decrypted/" + fileName); // Initialize this to the File path you want to serve.
+        file.delete();
+        System.out.println("./fileSystem/users/" +  username + "/Files/Decrypted/" + fileName);
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException e){
+            System.out.println("got interrupted!");
+        }        return Response.ok()
+                .entity("File Deleted")
+                .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"" ) //optional
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
+    }
+
+    @Path("/deleteSharedFile/{username}/{fileName}")
+    @GET
+    public Response deleteSharedFile(@PathParam("username") String username, @PathParam("fileName") String fileName) {
+        File file = new File("./fileSystem/users/" +  username + "/SharedFiles/" + fileName); // Initialize this to the File path you want to serve.
+        file.delete();
+        System.out.println("./fileSystem/users/" +  username + "/SharedFiles/" + fileName);
+        try{
+            Thread.sleep(1000);
+        }catch(InterruptedException e){
+            System.out.println("got interrupted!");
+        }        return Response.ok()
+                .entity("File Deleted")
+                .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"" ) //optional
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
+    }
+
+    @Path("/uploadEncryptedText/{username}/{ip}/{name}")
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response uploadText(
+    public Response uploadEncryptedText(
             @FormDataParam("file") InputStream uploadedInputStream,
             @FormDataParam("file") FormDataContentDisposition fileDetail,
             @PathParam("username") String username,
             @PathParam("ip") String ip,
             @PathParam("name") String name) {
-        String uploadedFileLocation = "./fileSystem/users/" + username + "/Files/" + name;
+        String uploadedFileLocation = "./fileSystem/users/" + username + "/Files/Encrypted/" + name;
             File file = new File(uploadedFileLocation);
         System.out.println(file.exists());
         if (file.exists())
@@ -121,6 +231,23 @@ public class serverCalls {
                 .build();
     }
 
+    @Path("/shareFile/{username}/{fileName}/{sharedUser}")
+    @GET
+    public Response shareFile(@PathParam("username") String username, @PathParam("fileName") String fileName, @PathParam("sharedUser") String sharedUser) {
+        File shareFile = new File("./fileSystem/users/" +  username + "/Files/Decrypted/" + fileName); // Initialize this to the File path you want to serve.
+        File dest = new File("./fileSystem/users/" +  sharedUser + "/SharedFiles/" + fileName);
+        System.out.println("./fileSystem/users/" +  sharedUser + "/SharedFiles/" + fileName);
+        try {
+            FileUtils.copyFile(shareFile, dest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }    return Response.ok()
+                .entity("File Shared")
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
+    }
+
     @Path("/uploadFile/{username}/{ip}")
     @POST
     @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -130,7 +257,7 @@ public class serverCalls {
             @PathParam("username") String username,
             @PathParam("ip") String ip) {
 
-        String uploadedFileLocation = "./fileSystem/users/" + username + "/Files/" + fileDetail.getFileName();
+        String uploadedFileLocation = "./fileSystem/users/" + username + "/Files/Decrypted/" + fileDetail.getFileName();
         File file = new File(uploadedFileLocation);
         if (file.exists())
         {
@@ -238,6 +365,12 @@ public class serverCalls {
     {
         System.out.println("Confirming User");
             File dir = new File("fileSystem/users/" + username + "/Files");
+            dir.mkdir();
+            dir = new File("fileSystem/users/" + username + "/Files/Encrypted");
+            dir.mkdir();
+            dir = new File("fileSystem/users/" + username + "/Files/Decrypted");
+            dir.mkdir();
+            dir = new File("fileSystem/users/" + username + "/SharedFiles");
             dir.mkdir();
 
         return Response.ok()

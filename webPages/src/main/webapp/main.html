@@ -4,9 +4,11 @@
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="./rollups/aes.js"></script>
     <script src="./rollups/sha1.js"></script>
@@ -15,6 +17,12 @@
     <script src="./components/enc-utf16.js"></script>
 </head>
 <body>
+<div id="dialog" title="Basic dialog" style = "display:none">
+    <div class="ui-widget">
+        <label for="autocomplete">Username: </label>
+        <input id="autocomplete">
+    </div>
+</div>
     <a id = "download" class="button download green" style = "display:none">Download</a>
 <nav role="navigation" class="navbar navbar-default">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -25,13 +33,12 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a href="login.html" class="navbar-brand">FileUpload</a>
+            <a role="button" class="navbar-brand">FileUpload</a>
         </div>
         <!-- Collection of nav links and other content for toggling -->
         <div id="navbarCollapse" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">Profile</a></li>
                 <li><a href="#">Settings</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -48,29 +55,20 @@
         <input type="file" class = "fButton" name="file" size="50" id = "hidden" style="display:none;margin:auto;width:60%;padding:10px"/>
         <input type="submit" class = "btn btn-default fButton" id = "confirm2" style="display:none;margin:auto;padding:10px"/>
     </form>
-    <button id = "confirm" class="btn btn-default fButton" style = "display:none;margin:auto;width:60%;padding:10px"></button>
+    <button id = "confirm" class="btn btn-default fButton" style = "display:none;margin:auto;width:80%;padding:10px"></button>
 </div>
 <br>
 <br>
 <div class = "container-fluid" align = "center">
     <div class = "row">
-        <div class="col-sm-8">
-            <table class="table" id = "table">
-    <thead>
-      <tr>
-        <th>File Name</th>
-        <th>File Size</th>
-        <th>Shared With</th>
-          <th></th>
-      </tr>
-    </thead>
+        <div class="col-sm-8 col-centered">
+            <table class="table table-bordered" id = "table">
     <tbody>
     </tbody>
   </table>
         </div>
-        <div class="col-sm-4"></div>
-    </div>
 </div>
+    </div>
 </body>
 <style>
     body {
@@ -81,6 +79,10 @@
         background-color:#0033cc;
         border-color:black;
         color:white;
+    }
+    .col-centered{
+        float: none;
+        margin: 0 auto;
     }
     .page-header{
         margin-top: 25px !important;
@@ -99,18 +101,22 @@
         color: black;
     }
     table, th, td {
-        border: 1px solid black;
+        text-align : center;
     }
     th,td {
         background-color: #00ffff;
         color: black;
     }
-    .table>thead>tr>th
-    {
+    .table {
         border: 1px solid black;
     }
-    table {
-        border-collapse: collapse;
+    .table-bordered > thead > tr > th,
+    .table-bordered > tbody > tr > th,
+    .table-bordered > tfoot > tr > th,
+    .table-bordered > thead > tr > td,
+    .table-bordered > tbody > tr > td,
+    .table-bordered > tfoot > tr > td {
+        border: 1px solid black;
     }
     .navbar-default {
         background-color: #00ffff;
@@ -188,36 +194,114 @@
             var name = CryptoJS.AES.decrypt(data, password).toString(CryptoJS.enc.Latin1);
             $("#welcome").html("Welcome " + name);
             $.get("http://" + ip + ":4000/fileService/getList/" + username, function (data) {
-                for (var i = data.length - 1; i >= 0; i--) {
-                    $('#table').append('<tr><td><li style="list-style-type: none"><a role="button" class = "lTable">' + data[i][0] + '</a></li></td><td>' + data[i][1] + ' KB</td><td></td><td><li style="list-style-type: none"><a role="button" class = "delete" id = "' + data[i][0] + '"><i class="fa fa-trash-o"></a></td></tr>');
+                var encrypted = data[0];
+                var decrypted = data[1];
+                var shared = data[2];
+                if (encrypted.length != 0) {
+                    $('#table').append('<tr border-top-color = "black"><th border-top-color = "black" colspan = "4">Your Encrypted Files</th></tr>');
+                    $('#table').append('<tr><th>File Name</th><th>File Size</th><th>File Options</th></tr>');
+                    for (var i = encrypted.length - 1; i >= 0; i--) {
+                        $('#table').append('<tr><td><li style="list-style-type: none"><a role="button" class = "lEncryptedTable">' + encrypted[i][0] + '</a></li></td><td>' + encrypted[i][1] + ' KB</td><td><li style="list-style-type: none"><a role="button" class = "encryptedDelete" value = "' + encrypted[i][0] + '"><i class="fa fa-trash-o"></i></a></td></tr>');
+                    }
+                }
+                if (decrypted.length != 0) {
+                    $('#table').append('<tr border-top-color = "black"><th border-top-color = "black" colspan = "4">Your Decrytped Files</th></tr>');
+                    $('#table').append('<tr><th>File Name</th><th>File Size</th><th>File Options</th></tr>');
+                    for (var i = decrypted.length - 1; i >= 0; i--) {
+                        $('#table').append('<tr><td><li style="list-style-type: none"><a role="button" class = "lDecryptedTable">' + decrypted[i][0] + '</a></li></td><td>' + decrypted[i][1] + ' KB</td><td><li style="list-style-type: none"><a role="button" class = "settings" value = "' + decrypted[i][0] + '"><i class="fa fa-share"></i></a>  <a role="button" class = "decryptedDelete" value = "' + decrypted[i][0] + '"><i class="fa fa-trash-o"></i></a></td></tr>');
+                    }
+                }
+                if (shared.length != 0) {
+                    $('#table').append('<tr><th colspan = "4">Your Shared Files</th></tr>');
+                    $('#table').append('<tr><th>File Name</th><th>File Size</th><th>File Options</th></tr>');
+                    for (var i = shared.length - 1; i >= 0; i--) {
+                        $('#table').append('<tr><td><li style="list-style-type: none"><a role="button" class = "lSharedTable">' + shared[i][0] + '</a></li></td><td>' + shared[i][1] + ' KB</td><td><li style="list-style-type: none"><a role="button" class = "sharedDelete" value = "' + shared[i][0] + '"><i class="fa fa-trash-o"></i></a></td></tr>');
+                    }
                 }
             });
         });
-        $(document).on('click', "a.lTable", function () {
+        $(document).on('click', "a.lEncryptedTable", function () {
             var name = $(this).html();
             if (name.split('.').pop() == "txt") {
-                $.get("http://" + ip + ":4000/fileService/getFile/" + username + "/" + name, function (data) {
+                $.get("http://" + ip + ":4000/fileService/getEncryptedFile/" + username + "/" + name, function (data) {
                     var decrypted = CryptoJS.AES.decrypt(data, password).toString(CryptoJS.enc.Latin1);
                     $("#download").attr('href', 'data:application/octet-stream,' + decrypted);
                     $("#download").attr('download', name);
                     document.getElementById('download').click();
                 });
             }
-            else
-            {
-                window.open("http://" + ip + ":4000/fileService/getFile/" + username + "/" + $(this).html(), function (data) {
-                });
-            }
         });
-        $(document).on('click', "a.delete", function () {
-            var r = confirm("Are you sure you want to delete " + $(this).attr("id") + "?");
+        $(document).on('click', "a.lDecryptedTable", function () {
+                window.open("http://" + ip + ":4000/fileService/getDecryptedFile/" + username + "/" + $(this).html(), function (data) {
+                });
+        });
+        $(document).on('click', "a.lSharedTable", function () {
+                window.open("http://" + ip + ":4000/fileService/getSharedFile/" + username + "/" + $(this).html(), function (data) {
+                });
+        });
+        $(document).on('click', "a.encryptedDelete", function () {
+            var r = confirm("Are you sure you want to delete " + $(this).attr("value") + "?");
             if (r == true) {
-                $.get("http://" + ip + ":4000/fileService/deleteFile/" + username + "/" + $(this).attr("id"), function (data) {
+                $.get("http://" + ip + ":4000/fileService/deleteEncryptedFile/" + username + "/" + $(this).attr("value"), function (data) {
                     document.cookie = "fileServiceUsername=" + username + ";path=/";
                     document.cookie = "fileServicePassword=" + password + ";path=/";
                     window.open("main.html", "_self");
                 });
             }
+        });
+        $(document).on('click', "a.decryptedDelete", function () {
+            var r = confirm("Are you sure you want to delete " + $(this).attr("value") + "?");
+            if (r == true) {
+                $.get("http://" + ip + ":4000/fileService/deleteDecryptedFile/" + username + "/" + $(this).attr("value"), function (data) {
+                    document.cookie = "fileServiceUsername=" + username + ";path=/";
+                    document.cookie = "fileServicePassword=" + password + ";path=/";
+                    window.open("main.html", "_self");
+                });
+            }
+        });
+        $(document).on('click', "a.sharedDelete", function () {
+            var r = confirm("Are you sure you want to delete shared file " + $(this).attr("value") + "?");
+            if (r == true) {
+                $.get("http://" + ip + ":4000/fileService/deleteSharedFile/" + username + "/" + $(this).attr("value"), function (data) {
+                    document.cookie = "fileServiceUsername=" + username + ";path=/";
+                    document.cookie = "fileServicePassword=" + password + ";path=/";
+                    window.open("main.html", "_self");
+                });
+            }
+        });
+        $(document).on('click', "a.navbar-brand", function () {
+            document.cookie = "fileServiceUsername=" + username + ";path=/";
+            document.cookie = "fileServicePassword=" + password + ";path=/";
+            window.open("main.html", "_self");
+        });
+        $(document).on('click', "a.settings", function (e) {
+                e.preventDefault();
+                var value = $(this).attr("value");
+                $.get("http://" + ip + ":4000/fileService/getUsers", function (data) {
+                    data.splice(data.indexOf(username),1);
+                    $('#autocomplete').autocomplete({
+                        source: data
+                    });
+                });
+                $("#dialog").dialog({
+                    autoOpen: false,
+                    modal: true,
+                    width: 600,
+                    height: 300,
+                    buttons: {
+                        "Share": function() {
+                            var temp = this;
+                            console.log()
+                            $.get("http://" + ip + ":4000/fileService/shareFile/" + username + "/" + value + "/" + $('#autocomplete').val(), function (data) {
+                                $(temp).dialog("close");
+                            });
+                        },
+                        Cancel: function() {
+                        $( this ).dialog( "close" );
+                        }
+                    }
+                });
+                $("#dialog").dialog("option", "title", "Share " + $(this).attr("value")).dialog("open");
         });
         function getCookie(name) {
             var value = "; " + document.cookie;
@@ -241,26 +325,35 @@
 
         $("#confirm").click(function () {
             if ($('#hidden').val().split('\\').pop().split('.').pop() == "txt") {
-                var fr = new FileReader();
-                fr.onload = function (e) {
-                    var rawData = fr.result;
-                    var encrypted = CryptoJS.AES.encrypt(fr.result, password);
-                    var fd = new FormData();
-                    fd.append('file', encrypted);
+                var r = confirm("Do you want to encrypt " + $('#hidden').val().split('\\').pop() + " (this means it cannot be shared)?");
+                if (r == true) {
+                    var fr = new FileReader();
+                    fr.onload = function (e) {
+                        var rawData = fr.result;
+                        var encrypted = CryptoJS.AES.encrypt(fr.result, password);
+                        var fd = new FormData();
+                        fd.append('file', encrypted);
+                        document.cookie = "fileServiceUsername=" + username + ";path=/";
+                        document.cookie = "fileServicePassword=" + password + ";path=/";
+                        $.ajax({
+                            url: "http://" + ip + ":4000/fileService/uploadEncryptedText/" + username + "/" + ip + "/" + $('#hidden').val().split('\\').pop(),
+                            data: fd,
+                            processData: false,
+                            contentType: false,
+                            type: 'POST',
+                            success: function (data) {
+                                eval(data);
+                            }
+                        });
+                    }
+                    fr.readAsBinaryString($("#hidden")[0].files[0]);
+                }
+                else
+                {
                     document.cookie = "fileServiceUsername=" + username + ";path=/";
                     document.cookie = "fileServicePassword=" + password + ";path=/";
-                    $.ajax({
-                        url: "http://" + ip + ":4000/fileService/uploadText/" + username + "/" + ip + "/" + $('#hidden').val().split('\\').pop(),
-                        data: fd,
-                        processData: false,
-                        contentType: false,
-                        type: 'POST',
-                        success: function (data) {
-                            eval(data);
-                        }
-                    });
+                    $("#confirm2").click();
                 }
-                fr.readAsBinaryString($("#hidden")[0].files[0]);
             }
             else
             {
