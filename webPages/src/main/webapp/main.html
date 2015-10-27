@@ -184,10 +184,19 @@
     $(document).ready(function() {
         var username = getCookie("fileServiceUsername");
         var password = getCookie("fileServicePassword");
+        if (username == null)
+        {
+            username = getCookie("fileServiceUsernameWeek");
+            password = getCookie("fileServicePasswordWeek");
+        }
+        else
+        {
+            document.cookie = "fileServiceUsername=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+            document.cookie = "fileServicePassword=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+        }
+        console.log(username);
         var ip = document.location.host;
         ip = ip.split(":")[0];
-        document.cookie = "fileServiceUsername=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-        document.cookie = "fileServicePassword=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
         $("#form").attr("action", "http://" + ip + ":4000/fileService/uploadFile/" + username + "/" + ip);
         $.get("http://" + ip + ":4000/fileService/getName/" + username, function (data) {
             data = replaceAll("_","/",data);
@@ -304,9 +313,22 @@
                 $("#dialog").dialog("option", "title", "Share " + $(this).attr("value")).dialog("open");
         });
         function getCookie(name) {
-            var value = "; " + document.cookie;
-            var parts = value.split("; " + name + "=");
-            if (parts.length == 2) return parts.pop().split(";").shift();
+            var dc = document.cookie;
+            var prefix = name + "=";
+            var begin = dc.indexOf("; " + prefix);
+            if (begin == -1) {
+                begin = dc.indexOf(prefix);
+                if (begin != 0) return null;
+            }
+            else
+            {
+                begin += 2;
+                var end = document.cookie.indexOf(";", begin);
+                if (end == -1) {
+                    end = dc.length;
+                }
+            }
+            return decodeURI(dc.substring(begin + prefix.length, end));
         }
 
         $('#upload').click(function () {

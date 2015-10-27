@@ -47,28 +47,28 @@
       <file leaf-file-name="register.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/register.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="-7.576923">
               <caret line="234" column="0" selection-start-line="234" selection-start-column="0" selection-end-line="234" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/main.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.72684085">
-              <caret line="63" column="43" selection-start-line="63" selection-start-column="43" selection-end-line="63" selection-end-column="43" />
+            <state vertical-scroll-proportion="-1.6923077">
+              <caret line="183" column="4" selection-start-line="183" selection-start-column="4" selection-end-line="183" selection-end-column="34" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#h1#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#button#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <marker date="1445901649881" expanded="true" signature="7923:7944" placeholder="..." />
-                <marker date="1445901649881" expanded="true" signature="8076:8097" placeholder="..." />
-                <marker date="1445901649881" expanded="true" signature="8701:8722" placeholder="..." />
-                <marker date="1445901649881" expanded="true" signature="8854:8875" placeholder="..." />
-                <marker date="1445901649881" expanded="true" signature="9519:9540" placeholder="..." />
-                <marker date="1445901649881" expanded="true" signature="9663:9684" placeholder="..." />
+                <marker date="1445981333832" expanded="true" signature="8167:8188" placeholder="..." />
+                <marker date="1445981333832" expanded="true" signature="8320:8341" placeholder="..." />
+                <marker date="1445981333832" expanded="true" signature="8945:8966" placeholder="..." />
+                <marker date="1445981333832" expanded="true" signature="9098:9119" placeholder="..." />
+                <marker date="1445981333832" expanded="true" signature="9763:9784" placeholder="..." />
+                <marker date="1445981333832" expanded="true" signature="9907:9928" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -77,18 +77,18 @@
       <file leaf-file-name="settings.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/settings.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
+            <state vertical-scroll-proportion="-0.0">
               <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="login.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.384615">
-              <caret line="219" column="0" selection-start-line="219" selection-start-column="0" selection-end-line="219" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.35416666">
+              <caret line="241" column="108" selection-start-line="241" selection-start-column="108" selection-end-line="241" selection-end-column="108" />
               <folding />
             </state>
           </provider>
@@ -132,8 +132,10 @@
         <option value="$PROJECT_DIR$/src/main/webapp/main2.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/settings.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/register.html" />
-        <option value="$PROJECT_DIR$/src/main/webapp/login.html" />
         <option value="$PROJECT_DIR$/src/main/webapp/main.html" />
+        <option value="$PROJECT_DIR$/src/main/webapp/rollups/jquery.cookie.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/jquery.cookie.js" />
+        <option value="$PROJECT_DIR$/src/main/webapp/login.html" />
       </list>
     </option>
   </component>
@@ -152,9 +154,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="3" />
-    <option name="width" value="1604" />
-    <option name="height" value="867" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1616" />
+    <option name="height" value="876" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -179,8 +182,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -262,6 +265,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="untitled8" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webPages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webapp" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rollups" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -288,11 +317,11 @@
       <recent name="C:\Users\James\IdeaProjects\untitled8\src\main\webapp" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jhark\Desktop\Software-Engineering\webPages\src\main\webapp" />
+      <recent name="C:\Users\jhark\Desktop\Software-Engineering\webPages\src\main\webapp\rollups" />
       <recent name="C:\Users\jhark\Desktop\temp\Software-Engineering\webPages\src\main\webapp" />
       <recent name="C:\Users\James\Desktop\Software-Engineering\webPages\src\main\webapp" />
       <recent name="C:\Users\James\Desktop\Software-Engineering\webPages\src\main\resources" />
-      <recent name="C:\Users\James\Desktop\Software-Engineering\webPages\src\main" />
-      <recent name="C:\Users\James\Desktop\Software-Engineering\webPages\src\main\java" />
     </key>
   </component>
   <component name="RunManager" selected="Maven.Run">
@@ -744,15 +773,18 @@
       <workItem from="1445282373297" duration="1619000" />
       <workItem from="1445372402889" duration="6717000" />
       <workItem from="1445379611489" duration="4534000" />
-      <workItem from="1445485842262" duration="15956000" />
+      <workItem from="1445485842262" duration="17166000" />
+      <workItem from="1445957665985" duration="63000" />
+      <workItem from="1445957801307" duration="1409000" />
+      <workItem from="1445979437362" duration="4154000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="100183000" />
+    <option name="totallyTimeSpent" value="107019000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="3" y="0" width="1604" height="867" extended-state="0" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="7" />
     <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -763,10 +795,10 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298153" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.33509234" sideWeight="0.49125" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3285528" sideWeight="0.49125" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22355163" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.221875" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -801,7 +833,14 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/main/webapp/login.html</url>
+          <line>217</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="3" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -810,22 +849,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/settings.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="206" column="30" selection-start-line="206" selection-start-column="30" selection-end-line="206" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/logout.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -874,12 +897,12 @@
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#h1#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1445901649881" expanded="true" signature="7923:7944" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="8076:8097" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="8701:8722" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="8854:8875" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="9519:9540" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="9663:9684" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="8167:8188" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="8320:8341" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="8945:8966" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="9098:9119" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="9763:9784" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="9907:9928" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -940,12 +963,12 @@
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#h1#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1445901649881" expanded="true" signature="7923:7944" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="8076:8097" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="8701:8722" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="8854:8875" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="9519:9540" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="9663:9684" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="8167:8188" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="8320:8341" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="8945:8966" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="9098:9119" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="9763:9784" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="9907:9928" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -990,12 +1013,12 @@
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#h1#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1445901649881" expanded="true" signature="7923:7944" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="8076:8097" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="8701:8722" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="8854:8875" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="9519:9540" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="9663:9684" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="8167:8188" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="8320:8341" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="8945:8966" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="9098:9119" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="9763:9784" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="9907:9928" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1226,35 +1249,51 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/register.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state vertical-scroll-proportion="-7.576923">
           <caret line="234" column="0" selection-start-line="234" selection-start-column="0" selection-end-line="234" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.384615">
-          <caret line="219" column="0" selection-start-line="219" selection-start-column="0" selection-end-line="219" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/main.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.72684085">
-          <caret line="63" column="43" selection-start-line="63" selection-start-column="43" selection-end-line="63" selection-end-column="43" />
+        <state vertical-scroll-proportion="-1.6923077">
+          <caret line="183" column="4" selection-start-line="183" selection-start-column="4" selection-end-line="183" selection-end-column="34" />
           <folding>
             <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#h1#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#1;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <marker date="1445901649881" expanded="true" signature="7923:7944" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="8076:8097" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="8701:8722" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="8854:8875" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="9519:9540" placeholder="..." />
-            <marker date="1445901649881" expanded="true" signature="9663:9684" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="8167:8188" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="8320:8341" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="8945:8966" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="9098:9119" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="9763:9784" placeholder="..." />
+            <marker date="1445981333832" expanded="true" signature="9907:9928" placeholder="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/EcmaScript.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33263597">
+          <caret line="854" column="0" selection-start-line="854" selection-start-column="0" selection-end-line="854" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/jquery.cookie.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.35416666">
+          <caret line="241" column="108" selection-start-line="241" selection-start-column="108" selection-end-line="241" selection-end-column="108" />
+          <folding />
         </state>
       </provider>
     </entry>

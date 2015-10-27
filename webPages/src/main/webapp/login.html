@@ -14,6 +14,7 @@
 		<title> Login </title>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="jquery.cookie.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <script src="./rollups/aes.js"></script>
@@ -201,38 +202,65 @@
         }
     </style>
 <script>
-	$("#login").click(function() {
-        var ip = document.location.host;
-        ip = ip.split(":")[0];
-        var password = CryptoJS.AES.encrypt($("#password").val(), $("#password").val()).toString();
-        password = replaceAll("/","*",password);
-        $.get("http://" + ip + ":4000/fileService/login/" + $("#username").val() + "/" + password, function( data ) {
-			if (data == "Unconfirmed")
-			{
-				window.alert("Please verify your email")
-			}
-            else if (data == "Unsuccessful")
-            {
-                window.alert("Username or password incorrect");
-            }
-			else
-			{
-                data = replaceAll("_","/",data);
-                var password = CryptoJS.AES.decrypt(data, $("#password").val()).toString(CryptoJS.enc.Latin1);
-                if (password == $("#password").val())
-                {
-                    document.cookie="fileServiceUsername=" + $("#username").val() + ";path=/";
-                    document.cookie="fileServicePassword=" + $("#password").val() + ";path=/";
-                    window.open("main.html", "_self")
+    $(document).ready(function() {
+
+        var remembered = 0;
+        if ($.cookie("fileServiceUsernameWeek") != null) {
+            console.log($.cookie("fileServiceUsernameWeek"));
+            console.log($.cookie("fileServicePasswordWeek"));
+            remembered = 1;
+            $("#username").val($.cookie("fileServiceUsernameWeek"));
+            $("#password").val($.cookie("fileServicePasswordWeek"));
+            $('#remember').prop('checked', true);
+        }
+        $("#login").click(function () {
+            var ip = document.location.host;
+            ip = ip.split(":")[0];
+            var password = CryptoJS.AES.encrypt($("#password").val(), $("#password").val()).toString();
+            password = replaceAll("/", "*", password);
+            $.get("http://" + ip + ":4000/fileService/login/" + $("#username").val() + "/" + password, function (data) {
+                if (data == "Unconfirmed") {
+                    window.alert("Please verify your email")
                 }
-                else {
+                else if (data == "Unsuccessful") {
                     window.alert("Username or password incorrect");
                 }
-			}
-		});
-	});
-    function replaceAll(find, replace, str) {
-        return str.replace(new RegExp(find, 'g'), replace);
-    }
+                else {
+                    data = replaceAll("_", "/", data);
+                    var password = CryptoJS.AES.decrypt(data, $("#password").val()).toString(CryptoJS.enc.Latin1);
+                    if (password == $("#password").val()) {
+                        if ($("#remember").is(":checked")) {
+                            if (!remembered) {
+                                var currentDate = new Date();
+                                currentDate.setDate(currentDate.getDate() + 7);
+                                document.cookie = "fileServiceUsernameWeek=" + $("#username").val() + ";expires=" + currentDate.toUTCString() + ";path=/";
+                                document.cookie = "fileServicePasswordWeek=" + $("#password").val() + ";expires=" + currentDate.toUTCString() + ";path=/";
+                            }
+                            else
+                            {
+                                document.cookie = "fileServiceUsername=" + $("#username").val() + ";path=/";
+                                document.cookie = "fileServicePassword=" + $("#password").val() + ";path=/";
+                            }
+                        }
+                        else {
+                            if (remembered) {
+                                document.cookie = "fileServiceUsernameWeek=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+                                document.cookie = "fileServicePasswordWeek=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+                            }
+                            document.cookie = "fileServiceUsername=" + $("#username").val() + ";path=/";
+                            document.cookie = "fileServicePassword=" + $("#password").val() + ";path=/";
+                        }
+                        window.open("main.html", "_self")
+                    }
+                    else {
+                        window.alert("Username or password incorrect");
+                    }
+                }
+            });
+        });
+        function replaceAll(find, replace, str) {
+            return str.replace(new RegExp(find, 'g'), replace);
+        }
+    });
 </script>
 </html>
