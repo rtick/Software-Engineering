@@ -110,6 +110,32 @@ public class serverCalls {
                 .build();
     }
 
+    @Path("/checkUsername/{username}")
+    @GET
+    public Response checkUsername(@PathParam("username") String username) {
+        // Return some cliched textual content
+        System.out.println("Checking name");
+        File dir = new File("./fileSystem/users/");
+        File[] directoryListing = dir.listFiles();
+        if (directoryListing != null) {
+            for (File child : directoryListing) {
+                if (child.getName().equals(username)) {
+                    System.out.println("test");
+                    return Response.ok()
+                            .entity("Successful")
+                            .header("Access-Control-Allow-Origin", "*")
+                            .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                            .build();
+                }
+            }
+        }
+        return Response.ok()
+                .entity("Unsuccessful")
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
+    }
+
     @Path("/getEncryptedFile/{username}/{fileName}")
     @GET
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
@@ -384,6 +410,63 @@ public class serverCalls {
                 .build();
     }
 
+    @Path("/sendResetEmail/{username}/{ip}")
+    @GET
+    public Response sendResetEmail(@PathParam("username") String username, @PathParam("ip") String ip)
+    {
+        System.out.println("Creating user");
+        File file = new File("fileSystem/users/" + username + "/userInfo.txt");
+        try {
+            String email = (String) FileUtils.readLines(file).get(3);
+            String password = (String) FileUtils.readLines(file).get(0);
+            System.out.println(email);
+            resetUser(username, email, password, ip);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Response.ok()
+                .entity("Reset")
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
+    }
+
+    @Path("/resetPass/{username}/{oldPassword}/{newPassword}")
+    @GET
+    public Response resetPass(@PathParam("username") String username, @PathParam("oldPassword") String oldPassword, @PathParam("newPassword") String newPassword)
+    {
+        System.out.println("Resetting user password");
+        File file = new File("fileSystem/users/" + username + "/userInfo.txt");
+        try {
+            String password = (String) FileUtils.readLines(file).get(0);
+            System.out.println(oldPassword);
+            if (!password.equals(oldPassword))
+            {
+                return Response.ok()
+                        .entity("Unsuccessful")
+                        .header("Access-Control-Allow-Origin", "*")
+                        .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                        .build();
+            }
+            String firstName = (String) FileUtils.readLines(file).get(1);
+            String lastName = (String) FileUtils.readLines(file).get(2);
+            String email = (String) FileUtils.readLines(file).get(3);
+            PrintWriter writer = new PrintWriter(file);
+            writer.println(newPassword);
+            writer.println(firstName);
+            writer.println(lastName);
+            writer.println(email);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Response.ok()
+                .entity("Successful")
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
+    }
+
     @Path("/registerUser/{username}/{password}/{firstName}/{lastName}/{email}/{ip}")
     @GET
     public Response registerUser(@PathParam("username") String username, @PathParam("password") String password, @PathParam("firstName") String firstName,
@@ -456,6 +539,66 @@ public class serverCalls {
                     "link below: <a href=\n" + location + "\n>here</a><br><br>Clicking the link will register your account with us. It's fast and easy! " +
                     "If you cannot click the link, copy and paste the full URL into your web browser.<br><br>If you do not want to confirm your account, or this " +
                     "email was generated in error, please ignore this message.<br><br>Thanks!<br>FileService Security Team";
+
+            // Now set the actual message
+            message.setContent(html, "text/html; charset=utf-8");
+
+            // Send message
+            Transport.send(message);
+
+            System.out.println("Sent message successfully....");
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void resetUser(String userName, String email, String password, String ip) {
+        // Recipient's email ID needs to be mentioned.
+        String to = email; //change accordingly
+
+        // Sender's email ID needs to be mentioned
+        String from = "fileserviceconfirmation@gmail.com";//change accordingly
+        final String username = "fileserviceconfirmation";//change accordingly
+        final String emailPassword = "AEIOU123";//change accordingly
+
+        // Assuming you are sending email through relay.jangosmtp.net
+        String host = "smtp.gmail.com";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
+
+        // Get the Session object.
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, emailPassword);
+                    }
+                });
+
+        try {
+            // Create a default MimeMessage object.
+            Message message = new MimeMessage(session);
+
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
+
+            // Set To: header field of the header.
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(to));
+
+            // Set Subject: header field
+            message.setSubject("Account Confirmation");
+            System.out.println("2:" + password);
+            String location = "http://" + ip + ":8080/tempReset.html?" + userName + ";" + password;
+
+            String html = "Hello " + userName + "!<br><br>Please reset your password by visiting the " +
+                    "link below: <a href=\n" + location + "\n>here</a><br><br>If you cannot click the link, copy and paste the full URL into your web browser." +
+                    "<br><br>If you do not want to reset your password, or this email was generated in error, please ignore this message." +
+                    "<br><br>Thanks!<br>FileService Security Team";
 
             // Now set the actual message
             message.setContent(html, "text/html; charset=utf-8");

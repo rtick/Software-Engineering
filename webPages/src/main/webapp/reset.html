@@ -1,0 +1,251 @@
+<!-- 
+	Name: Ryan Tick, James Harkins, Kyle Kozak
+	Date: 09/14/2015
+	Class: Software Engineering
+	HW: Horizontal Design
+	Registration Page
+-->
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title> Register </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="jquery.cookie.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <script src="./rollups/aes.js"></script>
+    <script src="./rollups/sha1.js"></script>
+    <script src="./components/core-min.js"></script>
+    <script src="./components/enc-base64-min.js"></script>
+    <script src="./components/enc-utf16.js"></script>
+</head>
+<body>
+<nav role="navigation" class="navbar navbar-default">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a href="login.html" class="navbar-brand">FileUpload</a>
+    </div>
+    <!-- Collection of nav links and other content for toggling -->
+    <div id="navbarCollapse" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li><a href="login.html">Login</a></li>
+            <li class="active"><a href="register.html">Register</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="login">
+        <h4 class = "header">FileUpload Reset Password</h4>
+        <h4 class = "return">Already have an account? <a href = "login.html">Login page</a></h4>
+        <hr>
+        <form class="login-inner">
+            <input type="password" class="form-control password" id="password" placeholder="Enter Password">
+            <input type="password" class="form-control password" id="confirmPassword" placeholder="Confirm Password">
+            <input class="btn btn-block btn-lg btn-default submit" value="Reset" id = "reset">
+        </form>
+    </div>
+</div>
+</body>
+<style>
+    body {
+        background-image: url("clouds.jpg");
+    }
+    .login {
+        margin-top: 25px !important;
+        padding: 5px;
+        width: auto;
+        min-width: 320px;
+        max-width: 400px;
+        height: 250px;
+        background-color: #00ffff;
+        margin:0 auto;
+        border-radius: 10px;
+        border: 1px solid black;
+        text-align: center;
+    }
+    .login-inner {
+        margin:0 auto;
+        max-width: 380px;
+        width: auto;
+    }
+    .header {
+        font-size: 20px;
+        margin-left: 5px;
+        font-weight: 600;
+        color: black;
+    }
+    hr {
+        border-top:1px solid black;
+    }
+    .return
+    {
+        font-size: 15px;
+        margin-left: 5px;
+        font-weight: 600;
+        color: black;
+    }
+    .email {
+        margin-bottom: 5px;
+    }
+    .password {
+        margin-bottom: 5px;
+    }
+    .submit {
+        margin-top: 5px;
+    }
+    .submit:hover
+    {
+        background-color:#0033cc;
+        border-color:black;
+        color: white;
+    }
+    .forgot {
+        min-width:50px;
+        width: 49%;
+        float: right;
+        margin-top: 20px;
+    }
+    .forgot:hover
+    {
+        background-color:#0033cc;
+        border-color:black;
+        color: white;
+    }
+    .register {
+        width: 50%;
+        float: left;
+        margin-top: 20px;
+    }
+    .register:hover
+    {
+        background-color:#0033cc;
+        border-color:black;
+        color: white;
+    }
+    @media (max-width: 320px) {
+        .forgot {
+            font-size: 9px;
+            font-weight: 700;
+            padding: 8px;
+        }
+    }
+    .navbar-default {
+        background-color: #00ffff;
+        border-color: #0033cc;
+    }
+    .navbar-default .navbar-brand {
+        color: #000000;
+    }
+    .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+        color: #fbfbfb;
+        background-color:#0033cc;
+    }
+    .navbar-default .navbar-text {
+        color: #000000;
+    }
+    .navbar-default .navbar-nav > li > a {
+        color: #000000;
+    }
+    .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+        color: #fbfbfb;
+        background-color:#0033cc;
+    }
+    .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+        color: #fbfbfb;
+        background-color: #0033cc;
+    }
+    .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+        color: #fbfbfb;
+        background-color: #0033cc;
+    }
+    .navbar-default .navbar-toggle {
+        border-color: #0033cc;
+    }
+    .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+        background-color: #0033cc;
+    }
+    .navbar-default .navbar-toggle .icon-bar {
+        background-color: #000000;
+    }
+    .navbar-default .navbar-collapse,
+    .navbar-default .navbar-form {
+        border-color: #000000;
+    }
+    .navbar-default .navbar-link {
+        color: #000000;
+    }
+    .navbar-default .navbar-link:hover {
+        color: #fbfbfb;
+    }
+
+    @media (max-width: 767px) {
+        .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+            color: #000000;
+        }
+        .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+            color: #fbfbfb;
+        }
+        .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+            color: #fbfbfb;
+            background-color: #0033cc;
+        }
+    }
+    a {
+        color: black;
+    }
+</style>
+<script>
+    $(document).ready(function() {
+        var username = $.cookie("fileServiceUsername");
+        var oldPassword = getCookie("fileServicePassword");
+        document.cookie = "fileServiceUsername=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+        document.cookie = "fileServicePassword=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+        console.log(username);
+        if (username == null) {
+            window.alert("Access Denied! You must come to this page directly from a password reset email link!")
+            window.open("login.html", "_self");
+        }
+        $("#reset").click(function () {
+            var ip = document.location.host;
+            ip = ip.split(":")[0];
+            if ($("#confirmPassword").val().localeCompare($("#password").val()) != 0) {
+                window.alert("The passwords do not match, please try again");
+            }
+            else {
+                var newPassword = CryptoJS.AES.encrypt($("#password").val(), $("#password").val()).toString();
+                newPassword = replaceAll("/", "_", newPassword);
+
+                $.get("http://" + ip + ":4000/fileService/resetPass/" + username + "/" + oldPassword + "/" + newPassword, function (data) {
+                    if (data == "Unsuccessful") {
+                        window.alert("Password Reset Unsuccessful. You must come to this page directly from a password reset email link!")
+                    }
+                    else {
+                        window.alert("Password Reset Successful!")
+                    }
+                   window.open("login.html", "_self");
+                });
+            }
+        });
+    });
+    function replaceAll(find, replace, str) {
+        return str.replace(new RegExp(find, 'g'), replace);
+    }
+    function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
+    }
+</script>
+</html>

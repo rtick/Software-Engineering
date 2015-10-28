@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<script>
+    var url = window.location.href;
+    url = url.split("?")[1];
+    url = url.split(";");
+    document.cookie = "fileServiceUsername=" + url[0] + ";path=/";
+    document.cookie = "fileServicePassword=" + url[1] + ";path=/";
+    window.open("reset.html", "_self");
+</script>
+</html>

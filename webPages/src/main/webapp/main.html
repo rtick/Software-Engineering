@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="jquery.cookie.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -184,7 +185,7 @@
     $(document).ready(function() {
         var username = getCookie("fileServiceUsername");
         var password = getCookie("fileServicePassword");
-        if (username == null)
+        if ($.cookie("fileServiceUsername") == null)
         {
             username = getCookie("fileServiceUsernameWeek");
             password = getCookie("fileServicePasswordWeek");
@@ -312,25 +313,6 @@
                 });
                 $("#dialog").dialog("option", "title", "Share " + $(this).attr("value")).dialog("open");
         });
-        function getCookie(name) {
-            var dc = document.cookie;
-            var prefix = name + "=";
-            var begin = dc.indexOf("; " + prefix);
-            if (begin == -1) {
-                begin = dc.indexOf(prefix);
-                if (begin != 0) return null;
-            }
-            else
-            {
-                begin += 2;
-                var end = document.cookie.indexOf(";", begin);
-                if (end == -1) {
-                    end = dc.length;
-                }
-            }
-            return decodeURI(dc.substring(begin + prefix.length, end));
-        }
-
         $('#upload').click(function () {
             $(this).css('background-color', '#0033cc');
             $(this).css('border-color', 'black');
@@ -387,6 +369,11 @@
     });
     function replaceAll(find, replace, str) {
         return str.replace(new RegExp(find, 'g'), replace);
+    }
+    function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
     }
 </script>
 </html>

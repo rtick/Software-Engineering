@@ -13,7 +13,9 @@
 	<head>
 		<title> Login </title>
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
         <script src="jquery.cookie.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
@@ -24,6 +26,12 @@
         <script src="./components/enc-utf16.js"></script>
 	</head>
 	<body>
+    <div id="dialog" title="Basic dialog" style = "display:none">
+        <div class="ui-widget">
+            <label for="reset">Username: </label>
+            <input id="reset">
+        </div>
+    </div>
     <nav role="navigation" class="navbar navbar-default">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -56,7 +64,7 @@
                 <input class="btn btn-block btn-lg btn-default submit"  value="Login" id = "login">
             </form>
             <a href="register.html" class="btn btn-sm btn-default register">Register</a>
-            <a href="#" class="btn btn-sm btn-default forgot">Forgot Password</a>
+            <a role="button" class="btn btn-sm btn-default forgot">Forgot Password</a>
         </div>
     </div>
 	</body>
@@ -206,13 +214,42 @@
 
         var remembered = 0;
         if ($.cookie("fileServiceUsernameWeek") != null) {
-            console.log($.cookie("fileServiceUsernameWeek"));
-            console.log($.cookie("fileServicePasswordWeek"));
             remembered = 1;
-            $("#username").val($.cookie("fileServiceUsernameWeek"));
-            $("#password").val($.cookie("fileServicePasswordWeek"));
+            $("#username").val($.getCookie("fileServiceUsernameWeek"));
+            $("#password").val($.getCookie("fileServicePasswordWeek"));
             $('#remember').prop('checked', true);
         }
+        $(document).on('click', "a.forgot", function () {
+            var ip = document.location.host;
+            ip = ip.split(":")[0];
+            $("#dialog").dialog({
+                autoOpen: false,
+                modal: true,
+                width: 600,
+                height: 300,
+                buttons: {
+                    "Reset": function() {
+                        var temp = this;
+                        $.get("http://" + ip + ":4000/fileService/checkUsername/" + $('#reset').val(), function (data) {
+                            if (data == "Unsuccessful")
+                            {
+                                window.alert("Not a registered username!")
+                            }
+                            else {
+                                $.get("http://" + ip + ":4000/fileService/sendResetEmail/" + $('#reset').val() + "/" + ip, function (data) {
+                                    window.alert("Password reset email sent!");
+                                    $(temp).dialog("close");
+                                });
+                            }
+                        });
+                    },
+                    Cancel: function() {
+                        $( this ).dialog( "close" );
+                    }
+                }
+            });
+            $("#dialog").dialog("option", "title", "Reset your password ").dialog("open");
+        });
         $("#login").click(function () {
             var ip = document.location.host;
             ip = ip.split(":")[0];
@@ -262,5 +299,10 @@
             return str.replace(new RegExp(find, 'g'), replace);
         }
     });
+    function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
+    }
 </script>
 </html>
