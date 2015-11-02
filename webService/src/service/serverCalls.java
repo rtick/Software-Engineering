@@ -267,8 +267,35 @@ public class serverCalls {
             FileUtils.copyFile(shareFile, dest);
         } catch (IOException e) {
             e.printStackTrace();
-        }    return Response.ok()
+        }
+        File file = new File("fileSystem/users/" + username + "/userInfo.txt");
+        try {
+            String email = (String) FileUtils.readLines(file).get(3);
+            confirmShareEmail(username, email, sharedUser, fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Response.ok()
                 .entity("File Shared")
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
+    }
+
+    @Path("/shareFileConfirm/{username}/{fileName}/{sharedUser}/{ip}")
+    @GET
+    public Response shareFileConfirm(@PathParam("username") String username, @PathParam("fileName") String fileName, @PathParam("sharedUser") String sharedUser,@PathParam("ip") String ip ) {
+        System.out.println("Creating user");
+        File file = new File("fileSystem/users/" + sharedUser + "/userInfo.txt");
+        try {
+            String email = (String) FileUtils.readLines(file).get(3);
+            String password = (String)FileUtils.readLines(file).get(0);
+            shareFileEmail(username, email, sharedUser, fileName, ip);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Response.ok()
+                .entity("Reset")
                 .header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                 .build();
@@ -591,13 +618,131 @@ public class serverCalls {
                     InternetAddress.parse(to));
 
             // Set Subject: header field
-            message.setSubject("Account Confirmation");
+            message.setSubject("Reset Password");
             System.out.println("2:" + password);
             String location = "http://" + ip + ":8080/tempReset.html?" + userName + ";" + password;
 
             String html = "Hello " + userName + "!<br><br>Please reset your password by visiting the " +
                     "link below: <a href=\n" + location + "\n>here</a><br><br>If you cannot click the link, copy and paste the full URL into your web browser." +
                     "<br><br>If you do not want to reset your password, or this email was generated in error, please ignore this message." +
+                    "<br><br>Thanks!<br>FileService Security Team";
+
+            // Now set the actual message
+            message.setContent(html, "text/html; charset=utf-8");
+
+            // Send message
+            Transport.send(message);
+
+            System.out.println("Sent message successfully....");
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void shareFileEmail(String userName, String email, String sharedUser, String fileName, String ip) {
+        // Recipient's email ID needs to be mentioned.
+        String to = email; //change accordingly
+
+        // Sender's email ID needs to be mentioned
+        String from = "fileserviceconfirmation@gmail.com";//change accordingly
+        final String username = "fileserviceconfirmation";//change accordingly
+        final String emailPassword = "AEIOU123";//change accordingly
+
+        // Assuming you are sending email through relay.jangosmtp.net
+        String host = "smtp.gmail.com";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
+
+        // Get the Session object.
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, emailPassword);
+                    }
+                });
+
+        try {
+            // Create a default MimeMessage object.
+            Message message = new MimeMessage(session);
+
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
+
+            // Set To: header field of the header.
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(to));
+
+            // Set Subject: header fields
+            message.setSubject("File Received");
+            String encodedFileName = fileName.replaceAll(" ", "%20");
+            String location = "http://" + ip + ":4000/fileService/shareFile/" + userName + "/" + encodedFileName + "/" + sharedUser;
+            System.out.println(location);
+
+            String html = "Hello " + sharedUser + "!<br><br>" + userName + " has shared file \"" + fileName + "\" with you.<br><br>If you wish to receive this file click the " +
+                    "link: <a href=\n" + location + "\n>here</a><br><br>" +
+                    "If you cannot click the link, copy and paste the full URL into your web browser.<br><br>If you do not want to receive this file, or this " +
+                    "email was generated in error, please ignore this message.<br><br>Thanks!<br>FileService Security Team";
+
+            // Now set the actual message
+            message.setContent(html, "text/html; charset=utf-8");
+
+            // Send message
+            Transport.send(message);
+
+            System.out.println("Sent message successfully....");
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void confirmShareEmail(String userName, String email, String sharedUser, String fileName) {
+        // Recipient's email ID needs to be mentioned.
+        String to = email; //change accordingly
+
+        // Sender's email ID needs to be mentioned
+        String from = "fileserviceconfirmation@gmail.com";//change accordingly
+        final String username = "fileserviceconfirmation";//change accordingly
+        final String emailPassword = "AEIOU123";//change accordingly
+
+        // Assuming you are sending email through relay.jangosmtp.net
+        String host = "smtp.gmail.com";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
+
+        // Get the Session object.
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, emailPassword);
+                    }
+                });
+
+        try {
+            // Create a default MimeMessage object.
+            Message message = new MimeMessage(session);
+
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
+
+            // Set To: header field of the header.
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(to));
+
+            // Set Subject: header fields
+            message.setSubject("File Received");
+            String encodedFileName = fileName.replaceAll(" ", "%20");
+
+            String html = "Hello " + userName + "!<br><br>" + sharedUser + " has accepted your file \"" + fileName + "\".<br><br>If this email was generated in error, please ignore this message." +
                     "<br><br>Thanks!<br>FileService Security Team";
 
             // Now set the actual message

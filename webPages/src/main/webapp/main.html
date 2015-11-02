@@ -302,7 +302,7 @@
                         "Share": function() {
                             var temp = this;
                             console.log()
-                            $.get("http://" + ip + ":4000/fileService/shareFile/" + username + "/" + value + "/" + $('#autocomplete').val(), function (data) {
+                            $.get("http://" + ip + ":4000/fileService/shareFileConfirm/" + username + "/" + value + "/" + $('#autocomplete').val() + "/" + ip, function (data) {
                                 $(temp).dialog("close");
                             });
                         },
@@ -329,7 +329,7 @@
 
         $("#confirm").click(function () {
             if ($('#hidden').val().split('\\').pop().split('.').pop() == "txt") {
-                var r = confirm("Do you want to encrypt " + $('#hidden').val().split('\\').pop() + " (this means it cannot be shared)?");
+                var r = confirm("Do you want to encrypt " + $('#hidden').val().split('\\').pop() + " ('Ok' for yes and 'Cancel' for no, yes means it cannot be shared)?");
                 if (r == true) {
                     var fr = new FileReader();
                     fr.onload = function (e) {

@@ -215,8 +215,8 @@
         var remembered = 0;
         if ($.cookie("fileServiceUsernameWeek") != null) {
             remembered = 1;
-            $("#username").val($.getCookie("fileServiceUsernameWeek"));
-            $("#password").val($.getCookie("fileServicePasswordWeek"));
+            $("#username").val(getCookie("fileServiceUsernameWeek"));
+            $("#password").val(getCookie("fileServicePasswordWeek"));
             $('#remember').prop('checked', true);
         }
         $(document).on('click', "a.forgot", function () {

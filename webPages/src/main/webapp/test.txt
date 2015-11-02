@@ -1,0 +1,23 @@
+#define SWAP(a, b, type) { type __tmp_c; c = b; b = a; a = c; }
+
+int main()
+
+{
+
+    int a = 3;
+
+    int b = 5;
+
+    printf("a is %d and b is %d\n", a, b);
+
+    SWAP(a, b, int);
+
+    printf("a is now %d and b is now %d\n", a, b);
+
+    SWAP(a, b, int);
+
+    printf("a is back to %d and b is back to %d\n", a, b);
+
+    return 0;
+
+}

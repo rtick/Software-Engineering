@@ -23,8 +23,10 @@
 		<script src="./components/core-min.js"></script>
 		<script src="./components/enc-base64-min.js"></script>
 		<script src="./components/enc-utf16.js"></script>
+		<script src='https://www.google.com/recaptcha/api.js'></script>
 	</head>
 	<body>
+	<?php require_once("phpfunc-showcaptcha.php"); ?>
 	<nav role="navigation" class="navbar navbar-default">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -56,6 +58,7 @@
 				<input class="form-control email" id="first_name" placeholder="Enter First Name">
 				<input class="form-control email" id="last_name" placeholder="Enter Last Name">
 				<input class="form-control email" id="email" placeholder="Enter Email">
+				<div class="g-recaptcha" data-sitekey="6LctGhATAAAAAOP1vf6XhLbCiCryO96AUEmhQhM4" align = "center"></div>
 				<input class="btn btn-block btn-lg btn-default submit" value="Register" id = "register">
 			</form>
 		</div>
@@ -71,7 +74,7 @@
 			width: auto;
 			min-width: 320px;
 			max-width: 400px;
-			height: 400px;
+			height: 475px;
 			background-color: #00ffff;
 			margin:0 auto;
 			border-radius: 10px;
@@ -210,35 +213,56 @@
 		}
 	</style>
 <script>
-	$("#register").click(function() {
-		var ip = document.location.host;
-		ip = ip.split(":")[0];
-		if ($("#confirmPassword").val().localeCompare($("#password").val()) != 0)
-		{
-			window.alert("The passwords do not match, please try again");
+	$(document).ready(function() {
+		$("#register").click(function () {
+			var v = validateCaptcha();
+			if (!v)
+			{
+				window.alert("Please complete the CAPTCHA process")
+			}
+			else {
+				var ip = document.location.host;
+				ip = ip.split(":")[0];
+				if ($("#confirmPassword").val().localeCompare($("#password").val()) != 0) {
+					window.alert("The passwords do not match, please try again");
+				}
+				else if (!validateEmail($("#email").val())) {
+					window.alert("Not a valid email address, please try again");
+				}
+				else {
+					var password = CryptoJS.AES.encrypt($("#password").val(), $("#password").val()).toString();
+					password = replaceAll("/", "_", password);
+					var firstName = CryptoJS.AES.encrypt($("#first_name").val(), $("#password").val()).toString();
+					firstName = replaceAll("/", "_", firstName);
+					var lastName = CryptoJS.AES.encrypt($("#last_name").val(), $("#password").val()).toString();
+					lastName = replaceAll("/", "_", lastName);
+					$.get("http://" + ip + ":4000/fileService/registerUser/" + $("#username").val() + "/" + password + "/" + firstName + "/" + lastName + "/" + $("#email").val() + "/" + ip, function (data) {
+						window.open("login.html", "_self");
+					});
+				}
+			}
+		});
+		function validateEmail(email) {
+			var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+			return re.test(email);
 		}
-		else if (!validateEmail($("#email").val()))
-		{
-			window.alert("Not a valid email address, please try again");
+
+		function replaceAll(find, replace, str) {
+			return str.replace(new RegExp(find, 'g'), replace);
 		}
-		else {
-			var password = CryptoJS.AES.encrypt($("#password").val(), $("#password").val()).toString();
-			password = replaceAll("/","_",password);
-			var firstName = CryptoJS.AES.encrypt($("#first_name").val(), $("#password").val()).toString();
-			firstName = replaceAll("/","_",firstName);
-			var lastName = CryptoJS.AES.encrypt($("#last_name").val(), $("#password").val()).toString();
-			lastName = replaceAll("/","_",lastName);
-			$.get("http://" + ip + ":4000/fileService/registerUser/" + $("#username").val() + "/" + password + "/" + firstName + "/" + lastName + "/" + $("#email").val() + "/" + ip, function (data) {
-				window.open("login.html", "_self");
-			});
+		//Validate the Recaptcha' Before continuing with POST ACTION
+		function validateCaptcha()
+		{
+			var v = grecaptcha.getResponse();
+			if(v.length == 0)
+			{
+				return false;
+			}
+			if(v.length != 0)
+			{
+				return true;
+			}
 		}
 	});
-	function validateEmail(email) {
-		var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
-		return re.test(email);
-	}
-	function replaceAll(find, replace, str) {
-		return str.replace(new RegExp(find, 'g'), replace);
-	}
 </script>
 </html>
