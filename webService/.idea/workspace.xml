@@ -23,10 +23,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="serverCalls.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="serverCalls.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/service/serverCalls.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.0079365">
+            <state vertical-scroll-proportion="-17.51724">
               <caret line="507" column="0" selection-start-line="507" selection-start-column="0" selection-end-line="507" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -35,7 +35,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="userInfo.txt" pinned="false" current-in-tab="false">
+      <file leaf-file-name="userInfo.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/fileSystem/users/jharkin2/userInfo.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
@@ -79,9 +79,9 @@
         <option value="$PROJECT_DIR$/fileSystem/users/jharkin2/Files/test" />
         <option value="$PROJECT_DIR$/fileSystem/users/jharkin2/Files/test.txt.txt" />
         <option value="$PROJECT_DIR$/fileSystem/users/jharkin2/Files/Decrypted/James.txt" />
-        <option value="$PROJECT_DIR$/fileSystem/users/jharkin2/userInfo.txt" />
         <option value="$PROJECT_DIR$/src/service/delim.java" />
         <option value="$PROJECT_DIR$/src/service/serverCalls.java" />
+        <option value="$PROJECT_DIR$/fileSystem/users/jharkin2/userInfo.txt" />
       </list>
     </option>
   </component>
@@ -871,12 +871,12 @@
       <workItem from="1447963271578" duration="556000" />
       <workItem from="1447964137809" duration="313000" />
       <workItem from="1448227823978" duration="1704000" />
-      <workItem from="1448240308690" duration="1248000" />
+      <workItem from="1448240308690" duration="1351000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="141902000" />
+    <option name="totallyTimeSpent" value="142005000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="7" />
@@ -1175,21 +1175,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/serverCalls.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-17.51724">
+          <caret line="507" column="0" selection-start-line="507" selection-start-column="0" selection-end-line="507" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/fileSystem/users/jharkin2/userInfo.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/service/serverCalls.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0079365">
-          <caret line="507" column="0" selection-start-line="507" selection-start-column="0" selection-end-line="507" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
