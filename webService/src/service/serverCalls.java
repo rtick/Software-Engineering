@@ -395,6 +395,7 @@ public class serverCalls {
                 String password = output.readLine();
                 output.close();
                 System.gc();
+                System.out.println("test");
                 return Response.ok()
                         .entity(password)
                         .header("Access-Control-Allow-Origin", "*")

@@ -230,8 +230,7 @@
 					window.alert("Not a valid email address, please try again");
 				}
 				else {
-					var password = CryptoJS.AES.encrypt($("#password").val(), $("#password").val()).toString();
-					password = replaceAll("/", "_", password);
+					var password = CryptoJS.MD5( $("#password").val()); //This is the line that we change to pass test 1, we send an MD5 sum as opposed to encryption
 					var firstName = CryptoJS.AES.encrypt($("#first_name").val(), $("#password").val()).toString();
 					firstName = replaceAll("/", "_", firstName);
 					var lastName = CryptoJS.AES.encrypt($("#last_name").val(), $("#password").val()).toString();

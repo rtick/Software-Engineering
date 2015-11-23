@@ -47,7 +47,7 @@
 </nav>
 <div class="container">
     <div class="login">
-        <h4 class = "header">FileUpload Reset Password</h4>
+        <h4 class = "header"></h4>
         <h4 class = "return">Already have an account? <a href = "login.html">Login page</a></h4>
         <hr>
         <form class="login-inner">
@@ -216,6 +216,9 @@
         if (username == null) {
             window.alert("Access Denied! You must come to this page directly from a password reset email link!")
             window.open("login.html", "_self");
+        }
+        else {
+            $(".header").html(username + " Reset Password");
         }
         $("#reset").click(function () {
             var ip = document.location.host;
