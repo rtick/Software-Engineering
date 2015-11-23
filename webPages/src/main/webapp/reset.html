@@ -227,10 +227,9 @@
                 window.alert("The passwords do not match, please try again");
             }
             else {
-                //These are the changes needed to pass test 3
-                //var newPassword = CryptoJS.AES.encrypt($("#password").val(), $("#password").val()).toString();
-                //newPassword = replaceAll("/", "_", newPassword);
-                var newPassword = CryptoJS.MD5( $("#password").val());
+                var newPassword = CryptoJS.AES.encrypt($("#password").val(), $("#password").val()).toString();
+                newPassword = replaceAll("/", "_", newPassword);
+
                 $.get("http://" + ip + ":4000/fileService/resetPass/" + username + "/" + oldPassword + "/" + newPassword, function (data) {
                     if (data == "Unsuccessful") {
                         window.alert("Password Reset Unsuccessful. You must come to this page directly from a password reset email link!")
