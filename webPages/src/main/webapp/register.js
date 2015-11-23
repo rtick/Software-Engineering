@@ -3,8 +3,12 @@
  */
 function register(username,password,firstname,lastname,email,ip) {
     var result = "";
-    var password = CryptoJS.AES.encrypt(password, password).toString();
-     password = replaceAll("/", "_", password);
+    //This is what we need to pass our feature implementation step, we send an MD5 sum as opposed to encryption
+    /*var password = CryptoJS.AES.encrypt($("#password").val(), $("#password").val()).toString();
+     password = replaceAll("/", "_", password);*/
+
+    var password = CryptoJS.MD5(password).toString();
+
     $.ajax({
         url: "http://" + ip + ":4000/fileService/registerUser/" + username + "/" + password + "/" + firstname + "/" + lastname + "/" + email + "/" + ip,
         success: function (data) {
