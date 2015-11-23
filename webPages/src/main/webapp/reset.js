@@ -3,8 +3,11 @@
  */
 function reset(username,oldPassword,newPassword,ip) {
     var result = "";
+     /*This is what we change to be able to pass our second regression test, being able to reset your password
      newPassword = CryptoJS.AES.encrypt(newPassword, newPassword).toString();
-     newPassword = replaceAll("/", "_", newPassword);
+     newPassword = replaceAll("/", "_", newPassword);*/
+
+    newPassword = CryptoJS.MD5(newPassword);
     $.ajax({
         url: "http://" + ip + ":4000/fileService/resetPass/" + username + "/" + oldPassword + "/" + newPassword,
         success: function (data) {
