@@ -263,9 +263,11 @@
                     window.alert("Username or password incorrect");
                 }
                 else {
-                    data = replaceAll("_", "/", data);
-                    var password = CryptoJS.AES.decrypt(data, $("#password").val()).toString(CryptoJS.enc.Latin1);
-                    if (password == $("#password").val()) {
+                    //This is what we will change to pass test 2
+                    /*data = replaceAll("_", "/", data);
+                    var password = CryptoJS.AES.decrypt(data, $("#password").val()).toString(CryptoJS.enc.Latin1);*/
+                    var password = CryptoJS.MD5( $("#password").val());
+                    if (data == password) {
                         if ($("#remember").is(":checked")) {
                             if (!remembered) {
                                 var currentDate = new Date();
