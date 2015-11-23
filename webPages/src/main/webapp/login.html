@@ -253,9 +253,11 @@
         $("#login").click(function () {
             var ip = document.location.host;
             ip = ip.split(":")[0];
-            var password = CryptoJS.AES.encrypt($("#password").val(), $("#password").val()).toString();
+            /*var password = CryptoJS.AES.encrypt($("#password").val(), $("#password").val()).toString();
             password = replaceAll("/", "*", password);
-            $.get("http://" + ip + ":4000/fileService/login/" + $("#username").val() + "/" + password, function (data) {
+            Part of the changes to fix our ability to log in
+            $.get("http://" + ip + ":4000/fileService/login/" + $("#username").val() + "/" + password, function (data) {*/
+            $.get("http://" + ip + ":4000/fileService/login/" + $("#username").val(), function (data) {
                 if (data == "Unconfirmed") {
                     window.alert("Please verify your email")
                 }
@@ -263,8 +265,11 @@
                     window.alert("Username or password incorrect");
                 }
                 else {
-                    data = replaceAll("_", "/", data);
-                    var password = CryptoJS.AES.decrypt(data, $("#password").val()).toString(CryptoJS.enc.Latin1);
+                    //This is what we will change to pass our first regression test, being able to log in
+                    /*data = replaceAll("_", "/", data);
+                    var password = CryptoJS.AES.decrypt(data, $("#password").val()).toString(CryptoJS.enc.Latin1);*/
+                    var password = CryptoJS.MD5( $("#password").val());
+                    console.log(password);
                     if (data == password) {
                         if ($("#remember").is(":checked")) {
                             if (!remembered) {

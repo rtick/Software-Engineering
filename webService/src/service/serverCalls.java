@@ -373,7 +373,9 @@ public class serverCalls {
                 .build();
     }
 
-    @Path("/login/{username}/{password}")
+    //Part of the changes to fix our ability to log in
+    //@Path("/login/{username}/{password}")
+    @Path("/login/{username}")
     @GET
     public Response login(@PathParam("username") String username)
     {
