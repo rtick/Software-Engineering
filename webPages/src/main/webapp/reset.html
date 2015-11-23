@@ -24,6 +24,8 @@
     <script src="./components/core-min.js"></script>
     <script src="./components/enc-base64-min.js"></script>
     <script src="./components/enc-utf16.js"></script>
+    <script src="reset.js"></script>
+    <script src="verifyReset.js"></script>
 </head>
 <body>
 <nav role="navigation" class="navbar navbar-default">
@@ -41,14 +43,13 @@
     <div id="navbarCollapse" class="collapse navbar-collapse">
         <ul class="nav navbar-nav">
             <li><a href="login.html">Login</a></li>
-            <li class="active"><a href="register.html">Register</a></li>
+            <li><a href="register.html">Register</a></li>
         </ul>
     </div>
 </nav>
 <div class="container">
     <div class="login">
         <h4 class = "header"></h4>
-        <h4 class = "return">Already have an account? <a href = "login.html">Login page</a></h4>
         <hr>
         <form class="login-inner">
             <input type="password" class="form-control password" id="password" placeholder="Enter Password">
@@ -208,11 +209,9 @@
 </style>
 <script>
     $(document).ready(function() {
-        var username = $.cookie("fileServiceUsername");
-        var oldPassword = getCookie("fileServicePassword");
-        document.cookie = "fileServiceUsername=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-        document.cookie = "fileServicePassword=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-        console.log(username);
+        var array = verifyReset("notTest");
+        var username = array[0];
+        var oldPassword = array[1];
         if (username == null) {
             window.alert("Access Denied! You must come to this page directly from a password reset email link!")
             window.open("login.html", "_self");
@@ -227,20 +226,14 @@
                 window.alert("The passwords do not match, please try again");
             }
             else {
-                /*This is what we change to be able to pass our second regression test, being able to reset your password
-                var newPassword = CryptoJS.AES.encrypt($("#password").val(), $("#password").val()).toString();
-                newPassword = replaceAll("/", "_", newPassword);*/
-                var newPassword = CryptoJS.MD5( $("#password").val());
-
-                $.get("http://" + ip + ":4000/fileService/resetPass/" + username + "/" + oldPassword + "/" + newPassword, function (data) {
-                    if (data == "Unsuccessful") {
+                var result = reset(username,oldPassword,$("#password").val(),ip)
+                    if (result == "Unsuccessful") {
                         window.alert("Password Reset Unsuccessful. You must come to this page directly from a password reset email link!")
                     }
                     else {
                         window.alert("Password Reset Successful!")
                     }
                    window.open("login.html", "_self");
-                });
             }
         });
     });

@@ -1,11 +1,13 @@
-<!DOCTYPE html>
+<!DOCTYPE html>'
 <html>
+<head>
+    <script src="tempReset.js"></script>
+</head>
 <script>
     var url = window.location.href;
     url = url.split("?")[1];
     url = url.split(";");
-    document.cookie = "fileServiceUsername=" + url[0] + ";path=/";
-    document.cookie = "fileServicePassword=" + url[1] + ";path=/";
+    tempReset(url[0], url[1]);
     window.open("reset.html", "_self");
 </script>
 </html>

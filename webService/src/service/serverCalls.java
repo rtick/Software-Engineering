@@ -110,6 +110,24 @@ public class serverCalls {
                 .build();
     }
 
+    @Path("/clearUsers")
+    @GET
+    public Response clearUsers() {
+        // Return some cliched textual content
+        System.out.println("Clearing directory");
+        File dir = new File("./fileSystem/users/");
+        try {
+            FileUtils.cleanDirectory(dir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return Response.ok()
+                .entity("Users Cleared")
+                .header("Access-Control-Allow-Origin", "*")
+                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+                .build();
+    }
+
     @Path("/checkUsername/{username}")
     @GET
     public Response checkUsername(@PathParam("username") String username) {
@@ -624,7 +642,7 @@ public class serverCalls {
             message.setSubject("Reset Password");
             System.out.println("2:" + password);
             String location = "http://" + ip + ":8080/tempReset.html?" + userName + ";" + password;
-
+            System.out.println(location);
             String html = "Hello " + userName + "!<br><br>Please reset your password by visiting the " +
                     "link below: <a href=\n" + location + "\n>here</a><br><br>If you cannot click the link, copy and paste the full URL into your web browser." +
                     "<br><br>If you do not want to reset your password, or this email was generated in error, please ignore this message." +

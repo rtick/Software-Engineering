@@ -24,6 +24,7 @@
 		<script src="./components/enc-base64-min.js"></script>
 		<script src="./components/enc-utf16.js"></script>
 		<script src='https://www.google.com/recaptcha/api.js'></script>
+		<script src="register.js"></script>
 	</head>
 	<body>
 	<?php require_once("phpfunc-showcaptcha.php"); ?>
@@ -230,17 +231,12 @@
 					window.alert("Not a valid email address, please try again");
 				}
 				else {
-					//This is what we need to pass our feature implementation step, we send an MD5 sum as opposed to encryption
-					/*var password = CryptoJS.AES.encrypt($("#password").val(), $("#password").val()).toString();
-					 password = replaceAll("/", "_", password);*/
-					var password = CryptoJS.MD5( $("#password").val());
 					var firstName = CryptoJS.AES.encrypt($("#first_name").val(), $("#password").val()).toString();
 					firstName = replaceAll("/", "_", firstName);
 					var lastName = CryptoJS.AES.encrypt($("#last_name").val(), $("#password").val()).toString();
 					lastName = replaceAll("/", "_", lastName);
-					$.get("http://" + ip + ":4000/fileService/registerUser/" + $("#username").val() + "/" + password + "/" + firstName + "/" + lastName + "/" + $("#email").val() + "/" + ip, function (data) {
-						window.open("login.html", "_self");
-					});
+					register($("#username").val(),$("#password").val(),firstName,lastName,$("#email").val(),ip)
+					window.open("login.html", "_self");
 				}
 			}
 		});
@@ -249,9 +245,6 @@
 			return re.test(email);
 		}
 
-		function replaceAll(find, replace, str) {
-			return str.replace(new RegExp(find, 'g'), replace);
-		}
 		//Validate the Recaptcha' Before continuing with POST ACTION
 		function validateCaptcha()
 		{

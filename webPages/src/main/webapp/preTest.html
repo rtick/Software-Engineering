@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>fileUpload Tests</title>
+    <link rel="stylesheet" href="//code.jquery.com/qunit/qunit-1.20.0.css">
+    <script src="//code.jquery.com/qunit/qunit-1.20.0.js"></script>
+    <script src="login.js"></script>
+    <script src="register.js"></script>
+    <script src="confirmUser.js"></script>
+    <script src="clearUsers.js"></script>
+    <script src="reset.js"></script>
+    <script src="verifyReset.js"></script>
+    <script src="tempReset.js"></script>
+    <script src="rememberMe.js"></script>
+    <script src="comparePasswords.js"></script>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="./rollups/aes.js"></script>
+    <script src="./rollups/sha1.js"></script>
+    <script src="./components/core-min.js"></script>
+    <script src="./components/enc-base64-min.js"></script>
+    <script src="./components/enc-utf16.js"></script>
+    <script src="jquery.cookie.js"></script>
+    <script>
+        var password = "";
+        var password2 = "";
+        QUnit.test("Register and Confirm Test", function( assert ) {
+            assert.equal(clearUsers("fileUpload"), "Users Cleared");
+            password = register("jharkin2", "AEIOU123","James","Harkins","jharkin2@nd.edu","fileUpload");
+            assert.notEqual(password, "Fail");
+            assert.equal(login("jharkin2", "fileUpload"), "Unconfirmed");
+            assert.equal(confirmUser("jharkin2","fileUpload"), "Account Confirmed! Visit <a href=\nhttp://fileUpload:8080/login.html\n>here</a> to login.");
+        });
+        QUnit.test("Feature Test", function( assert ) {
+            assert.equal(login("jharkin2", "fileUpload"), password);
+        });
+        QUnit.test("Login Test", function( assert ) {
+            assert.equal(comparePasswords("AEIOU123", password), "Confirmed");
+        });
+        QUnit.test("Reset Password Test", function( assert ) {
+            password2 = reset("jharkin2",password,"ABC456", "fileUpload");
+            assert.notEqual(password2, "Fail");
+            assert.equal(login("jharkin2", "fileUpload"), password2);
+            assert.equal(comparePasswords("ABC456", password2), "Confirmed");
+        });
+        QUnit.test("Invalid and Valid Reset Attempt Test", function( assert ) {
+            assert.equal(verifyReset("test"), "Fail");
+            assert.equal(tempReset("jharkin2", password2), "Success")
+            assert.equal(verifyReset("test"), "Pass");
+            assert.equal(clearUsers("fileUpload"), "Users Cleared");
+        });
+        QUnit.test("Remember Me Test", function( assert ) {
+            rememberMe("jharkin2", "AEIOU123", 1, 0);
+            var username = getCookie("fileServiceUsernameWeek");
+            var password = getCookie("fileServicePasswordWeek");
+            assert.equal(username, "jharkin2");
+            assert.equal(password, "AEIOU123")
+        });
+        function getCookie(name) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + name + "=");
+            if (parts.length == 2) return parts.pop().split(";").shift();
+        }
+        function replaceAll(find, replace, str) {
+            return str.replace(new RegExp(find, 'g'), replace);
+        }
+    </script>
+</head>
+<body>
+
+<div id="qunit"></div>
+
+</body>
+</html>
