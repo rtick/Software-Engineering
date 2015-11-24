@@ -26,8 +26,8 @@
       <file leaf-file-name="serverCalls.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/service/serverCalls.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.024242423">
-              <caret line="460" column="21" selection-start-line="460" selection-start-column="16" selection-end-line="460" selection-end-column="21" />
+            <state vertical-scroll-proportion="0.6164122">
+              <caret line="479" column="5" selection-start-line="479" selection-start-column="5" selection-end-line="479" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -117,8 +117,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -175,6 +173,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -192,7 +192,7 @@
     <property name="ToolWindowEvent Log.ShowToolbar" value="false" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/James/IdeaProjects/webService/src/example/Files.txt" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../webPages" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -860,12 +860,13 @@
       <workItem from="1448246903989" duration="3794000" />
       <workItem from="1448256991027" duration="55000" />
       <workItem from="1448257204363" duration="935000" />
-      <workItem from="1448293998027" duration="7710000" />
+      <workItem from="1448293998027" duration="7716000" />
+      <workItem from="1448382093723" duration="1318000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="154396000" />
+    <option name="totallyTimeSpent" value="155720000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1604" height="867" extended-state="1" />
@@ -933,6 +934,16 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/service/serverCalls.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/service/serverCalls.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1206,8 +1217,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/service/serverCalls.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.024242423">
-          <caret line="460" column="21" selection-start-line="460" selection-start-column="16" selection-end-line="460" selection-end-column="21" />
+        <state vertical-scroll-proportion="0.6164122">
+          <caret line="479" column="5" selection-start-line="479" selection-start-column="5" selection-end-line="479" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

@@ -25,35 +25,56 @@
     <script>
         var password = CryptoJS.MD5("AEIOU123").toString();
         var password2 = CryptoJS.MD5("ABC456").toString();
+        //Steps to register and confirm:
+        //First clear the database before testing
+        //Attempt to register a user
+        //Attempt to login and make sure the user is unconfirmed
+        //Attempt to confirm the user
         QUnit.test("Register and Confirm Test", function( assert ) {
             assert.equal(clearUsers("fileUpload"), "Users Cleared");
             assert.equal(register("jharkin2", "AEIOU123","James","Harkins","jharkin2@nd.edu","fileUpload"), password);
             assert.equal(login("jharkin2", "fileUpload"), "Unconfirmed");
             assert.equal(confirmUser("jharkin2","fileUpload"), "Account Confirmed! Visit <a href=\nhttp://fileUpload:8080/login.html\n>here</a> to login.");
         });
+        //Steps to test the new feature:
+        //Make sure the password is equal to the MD5Hash, not the AES Encryption
         QUnit.test("Feature Test", function( assert ) {
             assert.equal(login("jharkin2", "fileUpload"), password);
         });
+        //Steps to test login:
+        //Make sure user login with correct credentials is confirmed
+        //Make sure user login with incorrect credentials in unconfirmed
         QUnit.test("Login Test", function( assert ) {
             assert.equal(comparePasswords("AEIOU123", password), "Confirmed");
+            assert.equal(comparePasswords("randomPassword", password), "Unconfirmed");
         });
+        //Steps to reset password:
+        //Attempt to reset password
+        //Attempt to login with new password
         QUnit.test("Reset Password Test", function( assert ) {
             assert.equal(reset("jharkin2",password,"ABC456", "fileUpload"), password2);
             assert.equal(login("jharkin2", "fileUpload"), password2);
             assert.equal(comparePasswords("ABC456", password2), "Confirmed");
         });
+        //Steps to check valid reset attemps:
+        //Try to reset password going directly to page, should fail
+        //Try to reset password going through reset email first, should pass
         QUnit.test("Invalid and Valid Reset Attempt Test", function( assert ) {
             assert.equal(verifyReset("test"), "Fail");
             assert.equal(tempReset("jharkin2", password2), "Success")
             assert.equal(verifyReset("test"), "Pass");
-            assert.equal(clearUsers("fileUpload"), "Users Cleared");
         });
+        //steps for remember me test:
+        //Try to use remember me feature
+        //Make sure cookies are correctly set
+        //Clear user database now that we are done testing
         QUnit.test("Remember Me Test", function( assert ) {
             rememberMe("jharkin2", "AEIOU123", 1, 0);
             var username = getCookie("fileServiceUsernameWeek");
             var password = getCookie("fileServicePasswordWeek");
             assert.equal(username, "jharkin2");
             assert.equal(password, "AEIOU123")
+            assert.equal(clearUsers("fileUpload"), "Users Cleared");
         });
         function getCookie(name) {
             var value = "; " + document.cookie;

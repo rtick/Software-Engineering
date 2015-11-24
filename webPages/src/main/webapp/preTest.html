@@ -33,10 +33,12 @@
             assert.equal(confirmUser("jharkin2","fileUpload"), "Account Confirmed! Visit <a href=\nhttp://fileUpload:8080/login.html\n>here</a> to login.");
         });
         QUnit.test("Feature Test", function( assert ) {
-            assert.equal(login("jharkin2", "fileUpload"), password);
+            var md5sum = CryptoJS.MD5("AEIOU123").toString();
+            assert.equal(login("jharkin2", "fileUpload"), md5sum);
         });
         QUnit.test("Login Test", function( assert ) {
             assert.equal(comparePasswords("AEIOU123", password), "Confirmed");
+            assert.equal(comparePasswords("randomPassword", password), "Unconfirmed");
         });
         QUnit.test("Reset Password Test", function( assert ) {
             password2 = reset("jharkin2",password,"ABC456", "fileUpload");
