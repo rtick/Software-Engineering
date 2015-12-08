@@ -349,8 +349,10 @@
                 if (r == true) {
                     var fr = new FileReader();
                     fr.onload = function (e) {
-                        var rawData = fr.result;
-                        var encrypted = CryptoJS.AES.encrypt(fr.result, key);
+                        var string = fr.result;
+                        string = replaceAll(" ", "%20", string);
+                        string = replaceAll("\n", "%0D%0A", string);
+                        var encrypted = CryptoJS.AES.encrypt(string, key);
                         var fd = new FormData();
                         fd.append('file', encrypted);
                         document.cookie = "fileServiceUsername=" + username + ";path=/";
@@ -366,7 +368,7 @@
                             }
                         });
                     }
-                    fr.readAsBinaryString($("#hidden")[0].files[0]);
+                    fr.readAsText($("#hidden")[0].files[0]);
                 }
                 else
                 {
@@ -402,5 +404,6 @@
     {
         isReload = 0;
     }
+
 </script>
 </html>
