@@ -69,11 +69,15 @@
         //Make sure cookies are correctly set
         //Clear user database now that we are done testing
         QUnit.test("Remember Me Test", function( assert ) {
-            rememberMe("jharkin2", "AEIOU123", 1, 0);
+            rememberMe("jharkin2", "AEIOU123", "1234", "James", 1, 0);
             var username = getCookie("fileServiceUsernameWeek");
             var password = getCookie("fileServicePasswordWeek");
+            var key = getCookie("fileServiceKeyWeek");
+            var name = getCookie("fileServiceNameWeek");
             assert.equal(username, "jharkin2");
-            assert.equal(password, "AEIOU123")
+            assert.equal(password, "AEIOU123");
+            assert.equal(key, "1234");
+            assert.equal(name, "James");
             assert.equal(clearUsers("fileUpload"), "Users Cleared");
         });
         function getCookie(name) {
