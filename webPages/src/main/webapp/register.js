@@ -8,7 +8,6 @@ function register(username,password,firstname,lastname,email,ip) {
     password = replaceAll("/", "_", password);*/
 
     var password = CryptoJS.MD5(password).toString();
-
     $.ajax({
         url: "http://" + ip + ":4000/fileService/registerUser/" + username + "/" + password + "/" + firstname + "/" + lastname + "/" + email + "/" + ip,
         success: function (data) {

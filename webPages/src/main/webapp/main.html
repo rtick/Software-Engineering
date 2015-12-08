@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Home Page</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -184,7 +184,7 @@
     var isReload = 1;
     $(document).ready(function() {
         var username = getCookie("fileServiceUsername");
-        var password = getCookie("fileServicePassword");
+        var key = getCookie("fileServiceKey");
         var reset = getCookie("reset");
         console.log(reset);
         if (reset != null)
@@ -195,12 +195,12 @@
         if ($.cookie("fileServiceUsername") == null)
         {
             username = getCookie("fileServiceUsernameWeek");
-            password = getCookie("fileServicePasswordWeek");
+            key = getCookie("fileServiceKeyWeek");
         }
         else
         {
             document.cookie = "fileServiceUsername=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-            document.cookie = "fileServicePassword=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+            document.cookie = "fileServiceKey=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
         }
         console.log(username);
         var ip = document.location.host;
@@ -208,7 +208,7 @@
         $("#form").attr("action", "http://" + ip + ":4000/fileService/uploadFile/" + username + "/" + ip);
         $.get("http://" + ip + ":4000/fileService/getName/" + username, function (data) {
             data = replaceAll("_","/",data);
-            var name = CryptoJS.AES.decrypt(data, password).toString(CryptoJS.enc.Latin1);
+            var name = CryptoJS.AES.decrypt(data, key).toString(CryptoJS.enc.Latin1);
             $("#welcome").html("Welcome " + name);
             $.get("http://" + ip + ":4000/fileService/getList/" + username, function (data) {
                 var encrypted = data[0];
@@ -242,7 +242,7 @@
             var name = $(this).html();
             if (name.split('.').pop() == "txt") {
                 $.get("http://" + ip + ":4000/fileService/getEncryptedFile/" + username + "/" + name, function (data) {
-                    var decrypted = CryptoJS.AES.decrypt(data, password).toString(CryptoJS.enc.Latin1);
+                    var decrypted = CryptoJS.AES.decrypt(data, key).toString(CryptoJS.enc.Latin1);
                     $("#download").attr('href', 'data:application/octet-stream,' + decrypted);
                     $("#download").attr('download', name);
                     document.getElementById('download').click();
@@ -265,7 +265,7 @@
             if (r == true) {
                 $.get("http://" + ip + ":4000/fileService/deleteEncryptedFile/" + username + "/" + $(this).attr("value"), function (data) {
                     document.cookie = "fileServiceUsername=" + username + ";path=/";
-                    document.cookie = "fileServicePassword=" + password + ";path=/";
+                    document.cookie = "fileServiceKey=" + key + ";path=/";
                     window.open("main.html", "_self");
                 });
             }
@@ -276,7 +276,7 @@
             if (r == true) {
                 $.get("http://" + ip + ":4000/fileService/deleteDecryptedFile/" + username + "/" + $(this).attr("value"), function (data) {
                     document.cookie = "fileServiceUsername=" + username + ";path=/";
-                    document.cookie = "fileServicePassword=" + password + ";path=/";
+                    document.cookie = "fileServiceKey=" + key + ";path=/";
                     window.open("main.html", "_self");
                 });
             }
@@ -287,7 +287,7 @@
             if (r == true) {
                 $.get("http://" + ip + ":4000/fileService/deleteSharedFile/" + username + "/" + $(this).attr("value"), function (data) {
                     document.cookie = "fileServiceUsername=" + username + ";path=/";
-                    document.cookie = "fileServicePassword=" + password + ";path=/";
+                    document.cookie = "fileServiceKey=" + key + ";path=/";
                     window.open("main.html", "_self");
                 });
             }
@@ -295,7 +295,7 @@
         $(document).on('click', "a.navbar-brand", function () {
             isReload = 0;
             document.cookie = "fileServiceUsername=" + username + ";path=/";
-            document.cookie = "fileServicePassword=" + password + ";path=/";
+            document.cookie = "fileServiceKey=" + key + ";path=/";
             window.open("main.html", "_self");
         });
         $(document).on('click', "a.settings", function (e) {
@@ -343,17 +343,18 @@
         });
 
         $("#confirm").click(function () {
+            isReload = 0;
             if ($('#hidden').val().split('\\').pop().split('.').pop() == "txt") {
                 var r = confirm("Do you want to encrypt " + $('#hidden').val().split('\\').pop() + " ('Ok' for yes and 'Cancel' for no, yes means it cannot be shared)?");
                 if (r == true) {
                     var fr = new FileReader();
                     fr.onload = function (e) {
                         var rawData = fr.result;
-                        var encrypted = CryptoJS.AES.encrypt(fr.result, password);
+                        var encrypted = CryptoJS.AES.encrypt(fr.result, key);
                         var fd = new FormData();
                         fd.append('file', encrypted);
                         document.cookie = "fileServiceUsername=" + username + ";path=/";
-                        document.cookie = "fileServicePassword=" + password + ";path=/";
+                        document.cookie = "fileServiceKey=" + key + ";path=/";
                         $.ajax({
                             url: "http://" + ip + ":4000/fileService/uploadEncryptedText/" + username + "/" + ip + "/" + $('#hidden').val().split('\\').pop(),
                             data: fd,
@@ -370,14 +371,14 @@
                 else
                 {
                     document.cookie = "fileServiceUsername=" + username + ";path=/";
-                    document.cookie = "fileServicePassword=" + password + ";path=/";
+                    document.cookie = "fileServiceKey=" + key + ";path=/";
                     $("#confirm2").click();
                 }
             }
             else
             {
                 document.cookie = "fileServiceUsername=" + username + ";path=/";
-                document.cookie = "fileServicePassword=" + password + ";path=/";
+                document.cookie = "fileServiceKey=" + key + ";path=/";
                 $("#confirm2").click();
             }
         })

@@ -62,7 +62,9 @@
         <hr>
         <form class="login-inner">
             <input class="form-control email" id="username" placeholder="Enter Username">
+            <input class="form-control email" id="firstName" placeholder="Enter Your First Name">
             <input type="password" class="form-control password" id="password" placeholder="Password">
+            <input type="password" class="form-control password" id="eKey" placeholder="Encryption Key">
             <label class="checkbox-inline">
                 <input type="checkbox" id="remember" value="Remember me" style="color:white"> Remember me
             </label>
@@ -83,7 +85,7 @@
         width: auto;
         min-width: 320px;
         max-width: 400px;
-        height: 300px;
+        height: 375px;
         background-color: #00ffe8;
         margin:0 auto;
         border-radius: 10px;
@@ -225,6 +227,8 @@
             remembered = 1;
             $("#username").val(getCookie("fileServiceUsernameWeek"));
             $("#password").val(getCookie("fileServicePasswordWeek"));
+            $("#eKey").val(getCookie("fileServiceKeyWeek"));
+            $("#firstName").val(getCookie("fileServiceNameWeek"));
             $('#remember').prop('checked', true);
         }
         $(document).on('click', "a.forgot", function () {
@@ -269,14 +273,26 @@
                 window.alert("Username or password incorrect");
             }
             else {
-                var result = comparePasswords($("#password").val(), data)
-                if (result == "Confirmed") {
-                    rememberMe($("#username").val(), $("#password").val(), $("#remember").is(":checked"), remembered)
-                    window.open("main.html", "_self")
-                }
-                else {
-                    window.alert("Username or password incorrect");
-                }
+                $.get("http://" + ip + ":4000/fileService/getName/" + $("#username").val(), function (name) {
+                    name = replaceAll("_", "/", name);
+                    name = CryptoJS.AES.decrypt(name, $("#eKey").val()).toString(CryptoJS.enc.Latin1);
+                    if (name == ($("#firstName").val()))
+                    {
+                        var result = comparePasswords($("#password").val(), data);
+                        if (result == "Confirmed") {
+                            rememberMe($("#username").val(), $("#password").val(), $("#eKey").val(), $("#firstName").val(), $("#remember").is(":checked"), remembered);
+                            window.open("main.html", "_self");
+                        }
+                        else {
+                            window.alert("Username or password incorrect");
+                        }
+                    }
+                    else
+                    {
+                        window.alert("First name or encryption key incorrect");
+                    }
+                });
+
             }
         });
         function replaceAll(find, replace, str) {

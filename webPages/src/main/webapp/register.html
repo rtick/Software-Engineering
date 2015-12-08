@@ -56,6 +56,8 @@
 				<input class="form-control email" id="username" placeholder="Enter Username">
 				<input type="password" class="form-control password" id="password" placeholder="Enter Password">
 				<input type="password" class="form-control password" id="confirmPassword" placeholder="Confirm Password">
+				<input type="password" class="form-control password" id="eKey" placeholder="Enter Encryption Key">
+				<input type="password" class="form-control password" id="confirmEKey" placeholder="Confirm Encryption Key">
 				<input class="form-control email" id="first_name" placeholder="Enter First Name">
 				<input class="form-control email" id="last_name" placeholder="Enter Last Name">
 				<input class="form-control email" id="email" placeholder="Enter Email">
@@ -75,7 +77,7 @@
 			width: auto;
 			min-width: 320px;
 			max-width: 400px;
-			height: 475px;
+			height: 550px;
 			background-color: #00ffff;
 			margin:0 auto;
 			border-radius: 10px;
@@ -227,13 +229,16 @@
 				if ($("#confirmPassword").val().localeCompare($("#password").val()) != 0) {
 					window.alert("The passwords do not match, please try again");
 				}
+				else if ($("#confirmEKey").val().localeCompare($("#eKey").val()) != 0) {
+					window.alert("The encryption keys do not match, please try again");
+				}
 				else if (!validateEmail($("#email").val())) {
 					window.alert("Not a valid email address, please try again");
 				}
 				else {
-					var firstName = CryptoJS.AES.encrypt($("#first_name").val(), $("#password").val()).toString();
+					var firstName = CryptoJS.AES.encrypt($("#first_name").val(), $("#eKey").val()).toString();
 					firstName = replaceAll("/", "_", firstName);
-					var lastName = CryptoJS.AES.encrypt($("#last_name").val(), $("#password").val()).toString();
+					var lastName = CryptoJS.AES.encrypt($("#last_name").val(), $("#eKey").val()).toString();
 					lastName = replaceAll("/", "_", lastName);
 					register($("#username").val(),$("#password").val(),firstName,lastName,$("#email").val(),ip)
 					window.open("login.html", "_self");
