@@ -42,7 +42,7 @@
                 <li class="active"><a href="#">Home</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="login.html">Logout</a></li>
+                <li><a href="login.html" onclick="onLogout()">Logout</a></li>
             </ul>
         </div>
     </nav>
@@ -181,9 +181,17 @@
     }
 </style>
 <script>
+    var isReload = 1;
     $(document).ready(function() {
         var username = getCookie("fileServiceUsername");
         var password = getCookie("fileServicePassword");
+        var reset = getCookie("reset");
+        console.log(reset);
+        if (reset != null)
+        {
+            window.alert("Redirecting to login page");
+            window.open("login.html", "_self");
+        }
         if ($.cookie("fileServiceUsername") == null)
         {
             username = getCookie("fileServiceUsernameWeek");
@@ -230,6 +238,7 @@
             });
         });
         $(document).on('click', "a.lEncryptedTable", function () {
+            isReload = 0;
             var name = $(this).html();
             if (name.split('.').pop() == "txt") {
                 $.get("http://" + ip + ":4000/fileService/getEncryptedFile/" + username + "/" + name, function (data) {
@@ -241,14 +250,17 @@
             }
         });
         $(document).on('click', "a.lDecryptedTable", function () {
+               isReload = 0;
                 window.open("http://" + ip + ":4000/fileService/getDecryptedFile/" + username + "/" + $(this).html(), function (data) {
                 });
         });
         $(document).on('click', "a.lSharedTable", function () {
+                isReload = 0;
                 window.open("http://" + ip + ":4000/fileService/getSharedFile/" + username + "/" + $(this).html(), function (data) {
                 });
         });
         $(document).on('click', "a.encryptedDelete", function () {
+            isReload = 0;
             var r = confirm("Are you sure you want to delete " + $(this).attr("value") + "?");
             if (r == true) {
                 $.get("http://" + ip + ":4000/fileService/deleteEncryptedFile/" + username + "/" + $(this).attr("value"), function (data) {
@@ -259,6 +271,7 @@
             }
         });
         $(document).on('click', "a.decryptedDelete", function () {
+            isReload = 0;
             var r = confirm("Are you sure you want to delete " + $(this).attr("value") + "?");
             if (r == true) {
                 $.get("http://" + ip + ":4000/fileService/deleteDecryptedFile/" + username + "/" + $(this).attr("value"), function (data) {
@@ -269,6 +282,7 @@
             }
         });
         $(document).on('click', "a.sharedDelete", function () {
+            isReload = 0;
             var r = confirm("Are you sure you want to delete shared file " + $(this).attr("value") + "?");
             if (r == true) {
                 $.get("http://" + ip + ":4000/fileService/deleteSharedFile/" + username + "/" + $(this).attr("value"), function (data) {
@@ -279,11 +293,13 @@
             }
         });
         $(document).on('click', "a.navbar-brand", function () {
+            isReload = 0;
             document.cookie = "fileServiceUsername=" + username + ";path=/";
             document.cookie = "fileServicePassword=" + password + ";path=/";
             window.open("main.html", "_self");
         });
         $(document).on('click', "a.settings", function (e) {
+                isReload = 0;
                 e.preventDefault();
                 var value = $(this).attr("value");
                 $.get("http://" + ip + ":4000/fileService/getUsers", function (data) {
@@ -373,6 +389,17 @@
         var value = "; " + document.cookie;
         var parts = value.split("; " + name + "=");
         if (parts.length == 2) return parts.pop().split(";").shift();
+    }
+    window.onbeforeunload = function() {
+        console.log(isReload);
+        if (isReload)
+        {
+            document.cookie = "reset=reset;path=/";
+        }
+    };
+    function onLogout()
+    {
+        isReload = 0;
     }
 </script>
 </html>

@@ -216,6 +216,10 @@
 </style>
 <script>
     $(document).ready(function() {
+        var reset = getCookie("reset");
+        if (reset != null) {
+            document.cookie = "reset=;expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+        }
         var remembered = 0;
         if ($.cookie("fileServiceUsernameWeek") != null) {
             remembered = 1;
