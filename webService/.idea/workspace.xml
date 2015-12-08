@@ -26,8 +26,8 @@
       <file leaf-file-name="serverCalls.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/service/serverCalls.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6164122">
-              <caret line="479" column="5" selection-start-line="479" selection-start-column="5" selection-end-line="479" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.77862597">
+              <caret line="720" column="0" selection-start-line="720" selection-start-column="0" selection-end-line="720" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -117,6 +117,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -170,12 +171,41 @@
               <option name="myItemId" value="fileSystem" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="users" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rtick" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="webService" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fileSystem" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="users" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jharkin2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -192,7 +222,7 @@
     <property name="ToolWindowEvent Log.ShowToolbar" value="false" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://C:/Users/James/IdeaProjects/webService/src/example/Files.txt" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../webPages" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -862,11 +892,13 @@
       <workItem from="1448257204363" duration="935000" />
       <workItem from="1448293998027" duration="7716000" />
       <workItem from="1448382093723" duration="1318000" />
+      <workItem from="1449169996591" duration="2119000" />
+      <workItem from="1449602412999" duration="435000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="155720000" />
+    <option name="totallyTimeSpent" value="158274000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="1604" height="867" extended-state="1" />
@@ -934,6 +966,26 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/service/serverCalls.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/service/serverCalls.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/service/serverCalls.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1217,8 +1269,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/service/serverCalls.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6164122">
-          <caret line="479" column="5" selection-start-line="479" selection-start-column="5" selection-end-line="479" selection-end-column="5" />
+        <state vertical-scroll-proportion="0.77862597">
+          <caret line="720" column="0" selection-start-line="720" selection-start-column="0" selection-end-line="720" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
